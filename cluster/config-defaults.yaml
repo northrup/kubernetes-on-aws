@@ -327,3 +327,8 @@ ssh_vpc_only: "false"
 # configure custom dns zone
 custom_dns_zone: "" # zone name e.g. example.org
 custom_dns_zone_nameservers: "" # space seperated list of nameserver IP addresses
+
+# enable encryption of secrets in etcd
+enable_encryption: "false"
+# when secrets encryption is enabled, the encryption key to use
+encryption_key:
