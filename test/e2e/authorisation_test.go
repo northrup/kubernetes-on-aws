@@ -69,27 +69,27 @@ var _ = framework.KubeDescribe("Authorization tests", func() {
 					"apiVersion": "authorization.k8s.io/v1beta1",
 					"kind": "SubjectAccessReview",
 					"spec": {
-					"resourceAttributes": {
-						"namespace": "teapot",
-						"verb": "get",
-						"group": "",
-						"resource": "pods"
-					},
-					"user": "kubelet",
-					"group": [
-						"system:masters"
-					]
+						"resourceAttributes": {
+							"namespace": "teapot",
+							"verb": "get",
+							"group": "",
+							"resource": "pods"
+						},
+						"user": "kubelet",
+						"group": [
+							"system:masters"
+						]
 					}
 				}`,
 				expect: expect{
 					status: http.StatusCreated,
 					body: `{
-					"apiVersion": "authorization.k8s.io/v1beta1",
-					"kind": "SubjectAccessReview",
-					"status": {
-						"allowed": true
-					}
-				}}`,
+						"apiVersion": "authorization.k8s.io/v1beta1",
+						"kind": "SubjectAccessReview",
+						"status": {
+							"allowed": true
+						}
+					}`,
 				},
 			}, {
 				msg: "kube-system daemonset-controller service account can update daemonset status",
@@ -97,26 +97,26 @@ var _ = framework.KubeDescribe("Authorization tests", func() {
 					"apiVersion": "authorization.k8s.io/v1beta1",
 					"kind": "SubjectAccessReview",
 					"spec": {
-					"resourceAttributes": {
-						"namespace": "kube-system",
-						"verb": "update",
-						"group": "extensions",
-						"resource": "daemonsets",
-						"subresource": "status"
-					},
-					"user": "system:serviceaccount:kube-system:daemon-set-controller",
-					"group": ["system:serviceaccounts:kube-system"]
+						"resourceAttributes": {
+							"namespace": "kube-system",
+							"verb": "update",
+							"group": "extensions",
+							"resource": "daemonsets",
+							"subresource": "status"
+						},
+						"user": "system:serviceaccount:kube-system:daemon-set-controller",
+						"group": ["system:serviceaccounts:kube-system"]
 					}
 				}`,
 				expect: expect{
 					status: http.StatusCreated,
 					body: `{
-					"apiVersion": "authorization.k8s.io/v1beta1",
-					"kind": "SubjectAccessReview",
-					"status": {
-						"allowed": true
-					}
-				}}`,
+						"apiVersion": "authorization.k8s.io/v1beta1",
+						"kind": "SubjectAccessReview",
+						"status": {
+							"allowed": true
+						}
+					}`,
 				},
 			}, {
 				msg: "kube-system default account can update daemonset finalizers",
@@ -124,26 +124,26 @@ var _ = framework.KubeDescribe("Authorization tests", func() {
 					"apiVersion": "authorization.k8s.io/v1beta1",
 					"kind": "SubjectAccessReview",
 					"spec": {
-					"resourceAttributes": {
-						"namespace": "kube-system",
-						"verb": "update",
-						"group": "extensions",
-						"resource": "daemonsets",
-						"subresource": "finalizers"
-					},
-					"user": "system:serviceaccount:kube-system:daemon-set-controller",
-					"group": ["system:serviceaccounts:kube-system"]
+						"resourceAttributes": {
+							"namespace": "kube-system",
+							"verb": "update",
+							"group": "extensions",
+							"resource": "daemonsets",
+							"subresource": "finalizers"
+						},
+						"user": "system:serviceaccount:kube-system:daemon-set-controller",
+						"group": ["system:serviceaccounts:kube-system"]
 					}
 				}`,
 				expect: expect{
 					status: http.StatusCreated,
 					body: `{
-					"apiVersion": "authorization.k8s.io/v1beta1",
-					"kind": "SubjectAccessReview",
-					"status": {
-						"allowed": true
-					}
-				}}`,
+						"apiVersion": "authorization.k8s.io/v1beta1",
+						"kind": "SubjectAccessReview",
+						"status": {
+							"allowed": true
+						}
+					}`,
 				},
 			}, {
 				msg: "default account in default namespace can not list statefulsets",
@@ -151,24 +151,24 @@ var _ = framework.KubeDescribe("Authorization tests", func() {
 					"apiVersion": "authorization.k8s.io/v1beta1",
 					"kind": "SubjectAccessReview",
 					"spec": {
-					"resourceAttributes": {
-						"namespace": "default",
-						"verb": "list",
-						"resource": "statefulsets"
-					},
-					"user": "system:serviceaccount:default:default",
-					"group": []
+						"resourceAttributes": {
+							"namespace": "default",
+							"verb": "list",
+							"resource": "statefulsets"
+						},
+						"user": "system:serviceaccount:default:default",
+						"group": []
 					}
 				}`,
 				expect: expect{
 					status: http.StatusCreated,
 					body: `{
-					"apiVersion": "authorization.k8s.io/v1beta1",
-					"kind": "SubjectAccessReview",
-					"status": {
-						"allowed": false
-					}
-				}}`,
+						"apiVersion": "authorization.k8s.io/v1beta1",
+						"kind": "SubjectAccessReview",
+						"status": {
+							"allowed": false
+						}
+					}`,
 				},
 			}, {
 				msg: "default account in non-default namespace can not list statefulsets",
@@ -176,24 +176,24 @@ var _ = framework.KubeDescribe("Authorization tests", func() {
 					"apiVersion": "authorization.k8s.io/v1beta1",
 					"kind": "SubjectAccessReview",
 					"spec": {
-					"resourceAttributes": {
-						"namespace": "non-default",
-						"verb": "list",
-						"resource": "statefulsets"
-					},
-					"user": "system:serviceaccount:non-default:default",
-					"group": []
+						"resourceAttributes": {
+							"namespace": "non-default",
+							"verb": "list",
+							"resource": "statefulsets"
+						},
+						"user": "system:serviceaccount:non-default:default",
+						"group": []
 					}
 				}`,
 				expect: expect{
 					status: http.StatusCreated,
 					body: `{
-					"apiVersion": "authorization.k8s.io/v1beta1",
-					"kind": "SubjectAccessReview",
-					"status": {
-						"allowed": false
-					}
-				}}`,
+						"apiVersion": "authorization.k8s.io/v1beta1",
+						"kind": "SubjectAccessReview",
+						"status": {
+							"allowed": false
+						}
+					}`,
 				},
 			}, {
 				msg: "User in admin group can patch daemonsets",
@@ -201,30 +201,30 @@ var _ = framework.KubeDescribe("Authorization tests", func() {
 					"apiVersion": "authorization.k8s.io/v1beta1",
 					"kind": "SubjectAccessReview",
 					"spec": {
-					"resourceAttributes": {
-						"namespace": "kube-system",
-						"name": "prometheus-node-exporter",
-						"verb": "patch",
-						"group": "extensions",
-						"resource": "daemonsets"
-					},
-					"user": "sszuecs",
-					"group": [
-						"ReadOnly",
-						"system:masters",
-						"system:authenticated"
-					]
+						"resourceAttributes": {
+							"namespace": "kube-system",
+							"name": "prometheus-node-exporter",
+							"verb": "patch",
+							"group": "extensions",
+							"resource": "daemonsets"
+						},
+						"user": "sszuecs",
+						"group": [
+							"ReadOnly",
+							"system:masters",
+							"system:authenticated"
+						]
 					}
 				}`,
 				expect: expect{
 					status: http.StatusCreated,
 					body: `{
-					"apiVersion": "authorization.k8s.io/v1beta1",
-					"kind": "SubjectAccessReview",
-					"status": {
-						"allowed": true
-					}
-				}}`,
+						"apiVersion": "authorization.k8s.io/v1beta1",
+						"kind": "SubjectAccessReview",
+						"status": {
+							"allowed": true
+						}
+					}`,
 				},
 			}, {
 				msg: "non-authorized group",
@@ -232,28 +232,28 @@ var _ = framework.KubeDescribe("Authorization tests", func() {
 					"apiVersion": "authorization.k8s.io/v1beta1",
 					"kind": "SubjectAccessReview",
 					"spec": {
-					"resourceAttributes": {
-						"namespace": "teapot",
-						"verb": "get",
-						"group": "",
-						"resource": "pods"
-					},
-					"user": "rdifazio",
-					"group": [
-						"FooBar"
-					]
+						"resourceAttributes": {
+							"namespace": "teapot",
+							"verb": "get",
+							"group": "",
+							"resource": "pods"
+						},
+						"user": "rdifazio",
+						"group": [
+							"FooBar"
+						]
 					}
 				}`,
 				expect: expect{
 					status: http.StatusCreated,
 					body: `{
-					"apiVersion": "authorization.k8s.io/v1beta1",
-					"kind": "SubjectAccessReview",
-					"status": {
-						"allowed": false,
-						"reason": "unauthorized access rdifazio/[FooBar]"
-					}
-				}}`,
+						"apiVersion": "authorization.k8s.io/v1beta1",
+						"kind": "SubjectAccessReview",
+						"status": {
+							"allowed": false,
+							"reason": "unauthorized access rdifazio/[FooBar]"
+						}
+					}`,
 				},
 			}, {
 				msg: "resource list authorized with ReadOnly group",
@@ -261,27 +261,27 @@ var _ = framework.KubeDescribe("Authorization tests", func() {
 					"apiVersion": "authorization.k8s.io/v1beta1",
 					"kind": "SubjectAccessReview",
 					"spec": {
-					"resourceAttributes": {
-						"namespace": "teapot",
-						"verb": "list",
-						"group": "",
-						"resource": "pods"
-					},
-					"user": "rdifazio",
-					"group": [
-						"ReadOnly"
-					]
+						"resourceAttributes": {
+							"namespace": "teapot",
+							"verb": "list",
+							"group": "",
+							"resource": "pods"
+						},
+						"user": "rdifazio",
+						"group": [
+							"ReadOnly"
+						]
 					}
 				}`,
 				expect: expect{
 					status: http.StatusCreated,
 					body: `{
-					"apiVersion": "authorization.k8s.io/v1beta1",
-					"kind": "SubjectAccessReview",
-					"status": {
-						"allowed": true
-					}
-				}}`,
+						"apiVersion": "authorization.k8s.io/v1beta1",
+						"kind": "SubjectAccessReview",
+						"status": {
+							"allowed": true
+						}
+					}`,
 				},
 			}, {
 				msg: "access to non-resource path with ReadOnly group",
@@ -289,25 +289,25 @@ var _ = framework.KubeDescribe("Authorization tests", func() {
 					"apiVersion": "authorization.k8s.io/v1beta1",
 					"kind": "SubjectAccessReview",
 					"spec": {
-					"nonResourceAttributes": {
-						"path": "/apis",
-						"verb": "get"
-					},
-					"user": "mlarsen",
-					"group": [
-						"ReadOnly"
-					]
+						"nonResourceAttributes": {
+							"path": "/apis",
+							"verb": "get"
+						},
+						"user": "mlarsen",
+						"group": [
+							"ReadOnly"
+						]
 					}
 				}`,
 				expect: expect{
 					status: http.StatusCreated,
 					body: `{
-					"apiVersion": "authorization.k8s.io/v1beta1",
-					"kind": "SubjectAccessReview",
-					"status": {
-						"allowed": true
-					}
-				}}`,
+						"apiVersion": "authorization.k8s.io/v1beta1",
+						"kind": "SubjectAccessReview",
+						"status": {
+							"allowed": true
+						}
+					}`,
 				},
 			}, {
 				msg: "access to use PodSecurityPolicy for ReadOnly should not be allowed",
@@ -315,29 +315,29 @@ var _ = framework.KubeDescribe("Authorization tests", func() {
 					"apiVersion": "authorization.k8s.io/v1beta1",
 					"kind": "SubjectAccessReview",
 					"spec": {
-					"resourceAttributes": {
-						"name": "privileged",
-						"namespace": "",
-						"verb": "use",
-						"group": "extensions",
-						"resource": "podsecuritypolicies"
-					},
-					"user": "sszuecs",
-					"group": [
-						"%s"
-					]
+						"resourceAttributes": {
+							"name": "privileged",
+							"namespace": "",
+							"verb": "use",
+							"group": "extensions",
+							"resource": "podsecuritypolicies"
+						},
+						"user": "sszuecs",
+						"group": [
+							"%s"
+						]
 					}
 				}`, readOnlyGroup),
 				expect: expect{
 					status: http.StatusCreated,
 					body: fmt.Sprintf(`{
-					"apiVersion": "authorization.k8s.io/v1beta1",
-					"kind": "SubjectAccessReview",
-					"status": {
-						"allowed": false,
-						"reason":"unauthorized access sszuecs/[%s]"
-					}
-				}}`, readOnlyGroup),
+						"apiVersion": "authorization.k8s.io/v1beta1",
+						"kind": "SubjectAccessReview",
+						"status": {
+							"allowed": false,
+							"reason":"unauthorized access sszuecs/[%s]"
+						}
+					}`, readOnlyGroup),
 				},
 			}, {
 				msg: "ReadOnly role should not give port-forward access to the 'port-forward-' pod in default namespace",
@@ -362,12 +362,12 @@ var _ = framework.KubeDescribe("Authorization tests", func() {
 				expect: expect{
 					status: http.StatusCreated,
 					body: `{
-					"apiVersion": "authorization.k8s.io/v1beta1",
-					"kind": "SubjectAccessReview",
-					"status": {
-						"allowed": false
-					}
-				}}`,
+						"apiVersion": "authorization.k8s.io/v1beta1",
+						"kind": "SubjectAccessReview",
+						"status": {
+							"allowed": false
+						}
+					}`,
 				},
 			}, {
 				msg: "ReadOnly role should give read access to nodes",
@@ -427,7 +427,7 @@ var _ = framework.KubeDescribe("Authorization tests", func() {
 						"status": {
 							"allowed": true
 						}
-				}}`,
+					}`,
 				},
 			},
 
@@ -438,17 +438,17 @@ var _ = framework.KubeDescribe("Authorization tests", func() {
 					"apiVersion": "authorization.k8s.io/v1beta1",
 					"kind": "SubjectAccessReview",
 					"spec": {
-					"resourceAttributes": {
-						"name": "restricted",
-						"namespace": "",
-						"verb": "use",
-						"group": "extensions",
-						"resource": "podsecuritypolicies"
-					},
-					"user": "sszuecs",
-					"group": [
-						"%s"
-					]
+						"resourceAttributes": {
+							"name": "restricted",
+							"namespace": "",
+							"verb": "use",
+							"group": "extensions",
+							"resource": "podsecuritypolicies"
+						},
+						"user": "sszuecs",
+						"group": [
+							"%s"
+						]
 					}
 				}`, emergencyGroup),
 				expect: expect{
@@ -459,7 +459,7 @@ var _ = framework.KubeDescribe("Authorization tests", func() {
 						"status": {
 							"allowed": true
 						}
-				}}`,
+					}`,
 				},
 			},
 
@@ -470,17 +470,17 @@ var _ = framework.KubeDescribe("Authorization tests", func() {
 					"apiVersion": "authorization.k8s.io/v1beta1",
 					"kind": "SubjectAccessReview",
 					"spec": {
-					"resourceAttributes": {
-						"name": "restricted",
-						"namespace": "",
-						"verb": "use",
-						"group": "extensions",
-						"resource": "podsecuritypolicies"
-					},
-					"user": "sszuecs",
-					"group": [
-						"%s"
-					]
+						"resourceAttributes": {
+							"name": "restricted",
+							"namespace": "",
+							"verb": "use",
+							"group": "extensions",
+							"resource": "podsecuritypolicies"
+						},
+						"user": "sszuecs",
+						"group": [
+							"%s"
+						]
 					}
 				}`, manualGroup),
 				expect: expect{
@@ -491,7 +491,7 @@ var _ = framework.KubeDescribe("Authorization tests", func() {
 						"status": {
 							"allowed": true
 						}
-				}}`,
+					}`,
 				},
 			},
 
@@ -536,27 +536,27 @@ var _ = framework.KubeDescribe("Authorization tests", func() {
 					"apiVersion": "authorization.k8s.io/v1beta1",
 					"kind": "SubjectAccessReview",
 					"spec": {
-					"resourceAttributes": {
-						"namespace": "kube-system",
-						"verb": "get",
-						"group": "",
-						"resource": "pods"
-					},
-					"user": "rdifazio",
-					"group": [
-						"PowerUser"
-					]
+						"resourceAttributes": {
+							"namespace": "kube-system",
+							"verb": "get",
+							"group": "",
+							"resource": "pods"
+						},
+						"user": "rdifazio",
+						"group": [
+							"PowerUser"
+						]
 					}
 				}`,
 				expect: expect{
 					status: http.StatusCreated,
 					body: `{
-					"apiVersion": "authorization.k8s.io/v1beta1",
-					"kind": "SubjectAccessReview",
-					"status": {
-						"allowed": true
-					}
-				}}`,
+						"apiVersion": "authorization.k8s.io/v1beta1",
+						"kind": "SubjectAccessReview",
+						"status": {
+							"allowed": true
+						}
+					}`,
 				},
 			},
 
@@ -567,29 +567,29 @@ var _ = framework.KubeDescribe("Authorization tests", func() {
 					"apiVersion": "authorization.k8s.io/v1beta1",
 					"kind": "SubjectAccessReview",
 					"spec": {
-					"resourceAttributes": {
-						"namespace": "kube-system",
-						"verb": "get",
-						"group": "",
-						"resource": "secrets"
-					},
-					"user": "sszuecs",
-					"group": [
-						"PowerUser"
-					]
+						"resourceAttributes": {
+							"namespace": "kube-system",
+							"verb": "get",
+							"group": "",
+							"resource": "secrets"
+						},
+						"user": "sszuecs",
+						"group": [
+							"PowerUser"
+						]
 					}
 				}`,
 				expect: expect{
 					status: http.StatusCreated,
 					body: `{
-					"apiVersion": "authorization.k8s.io/v1beta1",
-					"kind": "SubjectAccessReview",
-					"status": {
-						"allowed": false,
-						"denied": true,
-						"reason":"unauthorized access sszuecs/[PowerUser]"
-					}
-				}}`,
+						"apiVersion": "authorization.k8s.io/v1beta1",
+						"kind": "SubjectAccessReview",
+						"status": {
+							"allowed": false,
+							"denied": true,
+							"reason":"unauthorized access sszuecs/[PowerUser]"
+						}
+					}`,
 				},
 			},
 
@@ -600,27 +600,27 @@ var _ = framework.KubeDescribe("Authorization tests", func() {
 					"apiVersion": "authorization.k8s.io/v1beta1",
 					"kind": "SubjectAccessReview",
 					"spec": {
-					"resourceAttributes": {
-						"namespace": "teapot",
-						"verb": "get",
-						"group": "",
-						"resource": "secrets"
-					},
-					"user": "sszuecs",
-					"group": [
-						"PowerUser"
-					]
+						"resourceAttributes": {
+							"namespace": "teapot",
+							"verb": "get",
+							"group": "",
+							"resource": "secrets"
+						},
+						"user": "sszuecs",
+						"group": [
+							"PowerUser"
+						]
 					}
 				}`,
 				expect: expect{
 					status: http.StatusCreated,
 					body: `{
-					"apiVersion": "authorization.k8s.io/v1beta1",
-					"kind": "SubjectAccessReview",
-					"status": {
-						"allowed": true
-					}
-				}}`,
+						"apiVersion": "authorization.k8s.io/v1beta1",
+						"kind": "SubjectAccessReview",
+						"status": {
+							"allowed": true
+						}
+					}`,
 				},
 			},
 
@@ -631,27 +631,27 @@ var _ = framework.KubeDescribe("Authorization tests", func() {
 					"apiVersion": "authorization.k8s.io/v1beta1",
 					"kind": "SubjectAccessReview",
 					"spec": {
-					"resourceAttributes": {
-						"namespace": "teapot",
-						"verb": "create",
-						"group": "",
-						"resource": "secrets"
-					},
-					"user": "sszuecs",
-					"group": [
-						"PowerUser"
-					]
+						"resourceAttributes": {
+							"namespace": "teapot",
+							"verb": "create",
+							"group": "",
+							"resource": "secrets"
+						},
+						"user": "sszuecs",
+						"group": [
+							"PowerUser"
+						]
 					}
 				}`,
 				expect: expect{
 					status: http.StatusCreated,
 					body: `{
-					"apiVersion": "authorization.k8s.io/v1beta1",
-					"kind": "SubjectAccessReview",
-					"status": {
-						"allowed": true
-					}
-				}}`,
+						"apiVersion": "authorization.k8s.io/v1beta1",
+						"kind": "SubjectAccessReview",
+						"status": {
+							"allowed": true
+						}
+					}`,
 				},
 			},
 
@@ -663,27 +663,27 @@ var _ = framework.KubeDescribe("Authorization tests", func() {
 					"apiVersion": "authorization.k8s.io/v1beta1",
 					"kind": "SubjectAccessReview",
 					"spec": {
-					"resourceAttributes": {
-						"namespace": "teapot",
-						"verb": "create",
-						"group": "",
-						"resource": "pods/proxy"
-					},
-					"user": "sszuecs",
-					"group": [
-						"PowerUser"
-					]
+						"resourceAttributes": {
+							"namespace": "teapot",
+							"verb": "create",
+							"group": "",
+							"resource": "pods/proxy"
+						},
+						"user": "sszuecs",
+						"group": [
+							"PowerUser"
+						]
 					}
 				}`,
 				expect: expect{
 					status: http.StatusCreated,
 					body: `{
-					"apiVersion": "authorization.k8s.io/v1beta1",
-					"kind": "SubjectAccessReview",
-					"status": {
-						"allowed": true
-					}
-				}}`,
+						"apiVersion": "authorization.k8s.io/v1beta1",
+						"kind": "SubjectAccessReview",
+						"status": {
+							"allowed": true
+						}
+					}`,
 				},
 			},
 			//- CHECK poweruser can not create daemonsets
@@ -693,27 +693,27 @@ var _ = framework.KubeDescribe("Authorization tests", func() {
 					"apiVersion": "authorization.k8s.io/v1beta1",
 					"kind": "SubjectAccessReview",
 					"spec": {
-					"resourceAttributes": {
-						"namespace": "teapot",
-						"verb": "create",
-						"group": "",
-						"resource": "daemonsets"
-					},
-					"user": "sszuecs",
-					"group": [
-						"PowerUser"
-					]
+						"resourceAttributes": {
+							"namespace": "teapot",
+							"verb": "create",
+							"group": "",
+							"resource": "daemonsets"
+						},
+						"user": "sszuecs",
+						"group": [
+							"PowerUser"
+						]
 					}
 				}`,
 				expect: expect{
 					status: http.StatusCreated,
 					body: `{
-					"apiVersion": "authorization.k8s.io/v1beta1",
-					"kind": "SubjectAccessReview",
-					"status": {
-						"allowed": false
-					}
-				}}`,
+						"apiVersion": "authorization.k8s.io/v1beta1",
+						"kind": "SubjectAccessReview",
+						"status": {
+							"allowed": false
+						}
+					}`,
 				},
 			},
 			//- CHECK poweruser can not update daemonsets
@@ -723,27 +723,27 @@ var _ = framework.KubeDescribe("Authorization tests", func() {
 					"apiVersion": "authorization.k8s.io/v1beta1",
 					"kind": "SubjectAccessReview",
 					"spec": {
-					"resourceAttributes": {
-						"namespace": "teapot",
-						"verb": "update",
-						"group": "apps",
-						"resource": "daemonsets"
-					},
-					"user": "sszuecs",
-					"group": [
-						"PowerUser"
-					]
+						"resourceAttributes": {
+							"namespace": "teapot",
+							"verb": "update",
+							"group": "apps",
+							"resource": "daemonsets"
+						},
+						"user": "sszuecs",
+						"group": [
+							"PowerUser"
+						]
 					}
 				}`,
 				expect: expect{
 					status: http.StatusCreated,
 					body: `{
-					"apiVersion": "authorization.k8s.io/v1beta1",
-					"kind": "SubjectAccessReview",
-					"status": {
-						"allowed": false
-					}
-				}}`,
+						"apiVersion": "authorization.k8s.io/v1beta1",
+						"kind": "SubjectAccessReview",
+						"status": {
+							"allowed": false
+						}
+					}`,
 				},
 			},
 			//- CHECK poweruser can not delete daemonsets
@@ -753,27 +753,27 @@ var _ = framework.KubeDescribe("Authorization tests", func() {
 					"apiVersion": "authorization.k8s.io/v1beta1",
 					"kind": "SubjectAccessReview",
 					"spec": {
-					"resourceAttributes": {
-						"namespace": "teapot",
-						"verb": "delete",
-						"group": "apps",
-						"resource": "daemonsets"
-					},
-					"user": "sszuecs",
-					"group": [
-						"PowerUser"
-					]
+						"resourceAttributes": {
+							"namespace": "teapot",
+							"verb": "delete",
+							"group": "apps",
+							"resource": "daemonsets"
+						},
+						"user": "sszuecs",
+						"group": [
+							"PowerUser"
+						]
 					}
 				}`,
 				expect: expect{
 					status: http.StatusCreated,
 					body: `{
-					"apiVersion": "authorization.k8s.io/v1beta1",
-					"kind": "SubjectAccessReview",
-					"status": {
-						"allowed": false
-					}
-				}}`,
+						"apiVersion": "authorization.k8s.io/v1beta1",
+						"kind": "SubjectAccessReview",
+						"status": {
+							"allowed": false
+						}
+					}`,
 				},
 			},
 			//- CHECK poweruser can not patch daemonsets
@@ -783,27 +783,27 @@ var _ = framework.KubeDescribe("Authorization tests", func() {
 					"apiVersion": "authorization.k8s.io/v1beta1",
 					"kind": "SubjectAccessReview",
 					"spec": {
-					"resourceAttributes": {
-						"namespace": "teapot",
-						"verb": "patch",
-						"group": "apps",
-						"resource": "daemonsets"
-					},
-					"user": "sszuecs",
-					"group": [
-						"PowerUser"
-					]
+						"resourceAttributes": {
+							"namespace": "teapot",
+							"verb": "patch",
+							"group": "apps",
+							"resource": "daemonsets"
+						},
+						"user": "sszuecs",
+						"group": [
+							"PowerUser"
+						]
 					}
 				}`,
 				expect: expect{
 					status: http.StatusCreated,
 					body: `{
-					"apiVersion": "authorization.k8s.io/v1beta1",
-					"kind": "SubjectAccessReview",
-					"status": {
-						"allowed": false
-					}
-				}}`,
+						"apiVersion": "authorization.k8s.io/v1beta1",
+						"kind": "SubjectAccessReview",
+						"status": {
+							"allowed": false
+						}
+					}`,
 				},
 			},
 
@@ -832,7 +832,7 @@ var _ = framework.KubeDescribe("Authorization tests", func() {
 						"status": {
 							"allowed": false
 						}
-				}}`,
+					}`,
 				},
 			},
 
@@ -845,26 +845,26 @@ var _ = framework.KubeDescribe("Authorization tests", func() {
 					"apiVersion": "authorization.k8s.io/v1beta1",
 					"kind": "SubjectAccessReview",
 					"spec": {
-					"resourceAttributes": {
-						"name": "privileged",
-						"namespace": "",
-						"verb": "use",
-						"group": "extensions",
-						"resource": "podsecuritypolicies"
-					},
-					"user": "system:serviceaccount:teapot:operator",
-					"group": []
+						"resourceAttributes": {
+							"name": "privileged",
+							"namespace": "",
+							"verb": "use",
+							"group": "extensions",
+							"resource": "podsecuritypolicies"
+						},
+						"user": "system:serviceaccount:teapot:operator",
+						"group": []
 					}
 				}`,
 				expect: expect{
 					status: http.StatusCreated,
 					body: `{
-					"apiVersion": "authorization.k8s.io/v1beta1",
-					"kind": "SubjectAccessReview",
-					"status": {
-						"allowed": false
-					}
-				}}`,
+						"apiVersion": "authorization.k8s.io/v1beta1",
+						"kind": "SubjectAccessReview",
+						"status": {
+							"allowed": false
+						}
+					}`,
 				},
 			},
 
@@ -875,25 +875,25 @@ var _ = framework.KubeDescribe("Authorization tests", func() {
 					"apiVersion": "authorization.k8s.io/v1beta1",
 					"kind": "SubjectAccessReview",
 					"spec": {
-					"resourceAttributes": {
-						"namespace": "teapot",
-						"verb": "get",
-						"group": "",
-						"resource": "pods"
-					},
-					"user": "system:serviceaccount:teapot:operator",
-					"group": []
+						"resourceAttributes": {
+							"namespace": "teapot",
+							"verb": "get",
+							"group": "",
+							"resource": "pods"
+						},
+						"user": "system:serviceaccount:teapot:operator",
+						"group": []
 					}
 				}`,
 				expect: expect{
 					status: http.StatusCreated,
 					body: `{
-					"apiVersion": "authorization.k8s.io/v1beta1",
-					"kind": "SubjectAccessReview",
-					"status": {
-						"allowed": false
-					}
-				}}`,
+						"apiVersion": "authorization.k8s.io/v1beta1",
+						"kind": "SubjectAccessReview",
+						"status": {
+							"allowed": false
+						}
+					}`,
 				},
 			},
 
@@ -904,25 +904,25 @@ var _ = framework.KubeDescribe("Authorization tests", func() {
 					"apiVersion": "authorization.k8s.io/v1beta1",
 					"kind": "SubjectAccessReview",
 					"spec": {
-					"resourceAttributes": {
-						"namespace": "teapot",
-						"verb": "create",
-						"group": "",
-						"resource": "pods"
-					},
-					"user": "system:serviceaccount:teapot:operator",
-					"group": []
+						"resourceAttributes": {
+							"namespace": "teapot",
+							"verb": "create",
+							"group": "",
+							"resource": "pods"
+						},
+						"user": "system:serviceaccount:teapot:operator",
+						"group": []
 					}
 				}`,
 				expect: expect{
 					status: http.StatusCreated,
 					body: `{
-					"apiVersion": "authorization.k8s.io/v1beta1",
-					"kind": "SubjectAccessReview",
-					"status": {
-						"allowed": false
-					}
-				}}`,
+						"apiVersion": "authorization.k8s.io/v1beta1",
+						"kind": "SubjectAccessReview",
+						"status": {
+							"allowed": false
+						}
+					}`,
 				},
 			},
 			//- operator has no read access to other namespaces
@@ -932,25 +932,25 @@ var _ = framework.KubeDescribe("Authorization tests", func() {
 					"apiVersion": "authorization.k8s.io/v1beta1",
 					"kind": "SubjectAccessReview",
 					"spec": {
-					"resourceAttributes": {
-						"namespace": "coffeepot",
-						"verb": "get",
-						"group": "",
-						"resource": "pods"
-					},
-					"user": "system:serviceaccount:teapot:operator",
-					"group": []
+						"resourceAttributes": {
+							"namespace": "coffeepot",
+							"verb": "get",
+							"group": "",
+							"resource": "pods"
+						},
+						"user": "system:serviceaccount:teapot:operator",
+						"group": []
 					}
 				}`,
 				expect: expect{
 					status: http.StatusCreated,
 					body: `{
-					"apiVersion": "authorization.k8s.io/v1beta1",
-					"kind": "SubjectAccessReview",
-					"status": {
-						"allowed": false
-					}
-				}}`,
+						"apiVersion": "authorization.k8s.io/v1beta1",
+						"kind": "SubjectAccessReview",
+						"status": {
+							"allowed": false
+						}
+					}`,
 				},
 			},
 
@@ -961,26 +961,26 @@ var _ = framework.KubeDescribe("Authorization tests", func() {
 					"apiVersion": "authorization.k8s.io/v1beta1",
 					"kind": "SubjectAccessReview",
 					"spec": {
-					"resourceAttributes": {
-						"namespace": "coffeepot",
-						"verb": "create",
-						"group": "",
-						"resource": "pods"
-					},
-					"user": "system:serviceaccount:teapot:operator",
-					"group": []
+						"resourceAttributes": {
+							"namespace": "coffeepot",
+							"verb": "create",
+							"group": "",
+							"resource": "pods"
+						},
+						"user": "system:serviceaccount:teapot:operator",
+						"group": []
 					}
 				}`,
 				expect: expect{
 					status: http.StatusCreated,
 					body: `{
-					"apiVersion": "authorization.k8s.io/v1beta1",
-					"kind": "SubjectAccessReview",
-					"status": {
-						"allowed": false,
-						"reason": "unauthorized access system:serviceaccount:teapot:operator/[]"
-					}
-				}}`,
+						"apiVersion": "authorization.k8s.io/v1beta1",
+						"kind": "SubjectAccessReview",
+						"status": {
+							"allowed": false,
+							"reason": "unauthorized access system:serviceaccount:teapot:operator/[]"
+						}
+					}`,
 				},
 			},
 
@@ -991,25 +991,25 @@ var _ = framework.KubeDescribe("Authorization tests", func() {
 					"apiVersion": "authorization.k8s.io/v1beta1",
 					"kind": "SubjectAccessReview",
 					"spec": {
-					"resourceAttributes": {
-						"namespace": "teapot",
-						"verb": "get",
-						"group": "",
-						"resource": "secrets"
-					},
-					"user": "system:serviceaccount:teapot:operator",
-					"group": []
+						"resourceAttributes": {
+							"namespace": "teapot",
+							"verb": "get",
+							"group": "",
+							"resource": "secrets"
+						},
+						"user": "system:serviceaccount:teapot:operator",
+						"group": []
 					}
 				}`,
 				expect: expect{
 					status: http.StatusCreated,
 					body: `{
-					"apiVersion": "authorization.k8s.io/v1beta1",
-					"kind": "SubjectAccessReview",
-					"status": {
-						"allowed": false
-					}
-				}}`,
+						"apiVersion": "authorization.k8s.io/v1beta1",
+						"kind": "SubjectAccessReview",
+						"status": {
+							"allowed": false
+						}
+					}`,
 				},
 			},
 
@@ -1020,26 +1020,26 @@ var _ = framework.KubeDescribe("Authorization tests", func() {
 					"apiVersion": "authorization.k8s.io/v1beta1",
 					"kind": "SubjectAccessReview",
 					"spec": {
-					"resourceAttributes": {
-						"namespace": "coffeepot",
-						"verb": "get",
-						"group": "",
-						"resource": "secrets"
-					},
-					"user": "system:serviceaccount:teapot:operator",
-					"group": []
+						"resourceAttributes": {
+							"namespace": "coffeepot",
+							"verb": "get",
+							"group": "",
+							"resource": "secrets"
+						},
+						"user": "system:serviceaccount:teapot:operator",
+						"group": []
 					}
 				}`,
 				expect: expect{
 					status: http.StatusCreated,
 					body: `{
-					"apiVersion": "authorization.k8s.io/v1beta1",
-					"kind": "SubjectAccessReview",
-					"status": {
-						"allowed": false,
-						"reason": "unauthorized access system:serviceaccount:teapot:operator/[]"
-					}
-				}}`,
+						"apiVersion": "authorization.k8s.io/v1beta1",
+						"kind": "SubjectAccessReview",
+						"status": {
+							"allowed": false,
+							"reason": "unauthorized access system:serviceaccount:teapot:operator/[]"
+						}
+					}`,
 				},
 			},
 
@@ -1050,25 +1050,25 @@ var _ = framework.KubeDescribe("Authorization tests", func() {
 					"apiVersion": "authorization.k8s.io/v1beta1",
 					"kind": "SubjectAccessReview",
 					"spec": {
-					"resourceAttributes": {
-						"namespace": "",
-						"verb": "get",
-						"group": "apiextensions.k8s.io",
-						"resource": "customresourcedefinitions"
-					},
-					"user": "system:serviceaccount:teapot:operator",
-					"group": []
+						"resourceAttributes": {
+							"namespace": "",
+							"verb": "get",
+							"group": "apiextensions.k8s.io",
+							"resource": "customresourcedefinitions"
+						},
+						"user": "system:serviceaccount:teapot:operator",
+						"group": []
 					}
 				}`,
 				expect: expect{
 					status: http.StatusCreated,
 					body: `{
-					"apiVersion": "authorization.k8s.io/v1beta1",
-					"kind": "SubjectAccessReview",
-					"status": {
-						"allowed": false
-					}
-				}}`,
+						"apiVersion": "authorization.k8s.io/v1beta1",
+						"kind": "SubjectAccessReview",
+						"status": {
+							"allowed": false
+						}
+					}`,
 				},
 			},
 			//- operator has no write access to custom resource definitions (CRD) in all namespaces
@@ -1078,25 +1078,25 @@ var _ = framework.KubeDescribe("Authorization tests", func() {
 					"apiVersion": "authorization.k8s.io/v1beta1",
 					"kind": "SubjectAccessReview",
 					"spec": {
-					"resourceAttributes": {
-						"namespace": "",
-						"verb": "create",
-						"group": "apiextensions.k8s.io",
-						"resource": "customresourcedefinitions"
-					},
-					"user": "system:serviceaccount:teapot:operator",
-					"group": []
+						"resourceAttributes": {
+							"namespace": "",
+							"verb": "create",
+							"group": "apiextensions.k8s.io",
+							"resource": "customresourcedefinitions"
+						},
+						"user": "system:serviceaccount:teapot:operator",
+						"group": []
 					}
 				}`,
 				expect: expect{
 					status: http.StatusCreated,
 					body: `{
-					"apiVersion": "authorization.k8s.io/v1beta1",
-					"kind": "SubjectAccessReview",
-					"status": {
-						"allowed": false
-					}
-				}}`,
+						"apiVersion": "authorization.k8s.io/v1beta1",
+						"kind": "SubjectAccessReview",
+						"status": {
+							"allowed": false
+						}
+					}`,
 				},
 			},
 			//- operator has no write access to storageclasses in all namespaces
@@ -1106,24 +1106,24 @@ var _ = framework.KubeDescribe("Authorization tests", func() {
 					"apiVersion": "authorization.k8s.io/v1beta1",
 					"kind": "SubjectAccessReview",
 					"spec": {
-					"resourceAttributes": {
-						"verb": "create",
-						"group": "storage.k8s.io",
-						"resource": "storageclasses"
-					},
-					"user": "system:serviceaccount:teapot:operator",
-					"group": []
+						"resourceAttributes": {
+							"verb": "create",
+							"group": "storage.k8s.io",
+							"resource": "storageclasses"
+						},
+						"user": "system:serviceaccount:teapot:operator",
+						"group": []
 					}
 				}`,
 				expect: expect{
 					status: http.StatusCreated,
 					body: `{
-					"apiVersion": "authorization.k8s.io/v1beta1",
-					"kind": "SubjectAccessReview",
-					"status": {
-						"allowed": false
-					}
-				}}`,
+						"apiVersion": "authorization.k8s.io/v1beta1",
+						"kind": "SubjectAccessReview",
+						"status": {
+							"allowed": false
+						}
+					}`,
 				},
 			},
 			//- operator has no read access to storageclasses in all namespaces
@@ -1133,24 +1133,24 @@ var _ = framework.KubeDescribe("Authorization tests", func() {
 					"apiVersion": "authorization.k8s.io/v1beta1",
 					"kind": "SubjectAccessReview",
 					"spec": {
-					"resourceAttributes": {
-						"verb": "get",
-						"group": "storage.k8s.io",
-						"resource": "storageclasses"
-					},
-					"user": "system:serviceaccount:teapot:operator",
-					"group": []
+						"resourceAttributes": {
+							"verb": "get",
+							"group": "storage.k8s.io",
+							"resource": "storageclasses"
+						},
+						"user": "system:serviceaccount:teapot:operator",
+						"group": []
 					}
 				}`,
 				expect: expect{
 					status: http.StatusCreated,
 					body: `{
-					"apiVersion": "authorization.k8s.io/v1beta1",
-					"kind": "SubjectAccessReview",
-					"status": {
-						"allowed": false
-					}
-				}}`,
+						"apiVersion": "authorization.k8s.io/v1beta1",
+						"kind": "SubjectAccessReview",
+						"status": {
+							"allowed": false
+						}
+					}`,
 				},
 			},
 			//- operator has no read access to nodes in global namespace
@@ -1160,24 +1160,24 @@ var _ = framework.KubeDescribe("Authorization tests", func() {
 					"apiVersion": "authorization.k8s.io/v1beta1",
 					"kind": "SubjectAccessReview",
 					"spec": {
-					"resourceAttributes": {
-						"verb": "get",
-						"group": "",
-						"resource": "nodes"
-					},
-					"user": "system:serviceaccount:teapot:operator",
-					"group": []
+						"resourceAttributes": {
+							"verb": "get",
+							"group": "",
+							"resource": "nodes"
+						},
+						"user": "system:serviceaccount:teapot:operator",
+						"group": []
 					}
 				}`,
 				expect: expect{
 					status: http.StatusCreated,
 					body: `{
-					"apiVersion": "authorization.k8s.io/v1beta1",
-					"kind": "SubjectAccessReview",
-					"status": {
-						"allowed": false
-					}
-				}}`,
+						"apiVersion": "authorization.k8s.io/v1beta1",
+						"kind": "SubjectAccessReview",
+						"status": {
+							"allowed": false
+						}
+					}`,
 				},
 			},
 			//- operator has no write access to nodes in global namespace
@@ -1187,24 +1187,24 @@ var _ = framework.KubeDescribe("Authorization tests", func() {
 					"apiVersion": "authorization.k8s.io/v1beta1",
 					"kind": "SubjectAccessReview",
 					"spec": {
-					"resourceAttributes": {
-						"verb": "create",
-						"group": "",
-						"resource": "nodes"
-					},
-					"user": "system:serviceaccount:teapot:operator",
-					"group": []
+						"resourceAttributes": {
+							"verb": "create",
+							"group": "",
+							"resource": "nodes"
+						},
+						"user": "system:serviceaccount:teapot:operator",
+						"group": []
 					}
 				}`,
 				expect: expect{
 					status: http.StatusCreated,
 					body: `{
-					"apiVersion": "authorization.k8s.io/v1beta1",
-					"kind": "SubjectAccessReview",
-					"status": {
-						"allowed": false
-					}
-				}}`,
+						"apiVersion": "authorization.k8s.io/v1beta1",
+						"kind": "SubjectAccessReview",
+						"status": {
+							"allowed": false
+						}
+					}`,
 				},
 			},
 			//- readonly is not allowed to read secrets all namespaces
@@ -1214,25 +1214,25 @@ var _ = framework.KubeDescribe("Authorization tests", func() {
 					"apiVersion": "authorization.k8s.io/v1beta1",
 					"kind": "SubjectAccessReview",
 					"spec": {
-					"resourceAttributes": {
-						"namespace": "coffeepot",
-						"verb": "get",
-						"group": "",
-						"resource": "secrets"},
-					"user": "mkerk",
-					"group": ["ReadOnly"]
+						"resourceAttributes": {
+							"namespace": "coffeepot",
+							"verb": "get",
+							"group": "",
+							"resource": "secrets"},
+						"user": "mkerk",
+						"group": ["ReadOnly"]
 					}
 				}`,
 				expect: expect{
 					status: http.StatusCreated,
 					body: `{
-					"apiVersion": "authorization.k8s.io/v1beta1",
-					"kind": "SubjectAccessReview",
-					"status": {
-						"allowed": false,
-						"reason": "unauthorized access mkerk/[ReadOnly]"
-					}
-				}}`,
+						"apiVersion": "authorization.k8s.io/v1beta1",
+						"kind": "SubjectAccessReview",
+						"status": {
+							"allowed": false,
+							"reason": "unauthorized access mkerk/[ReadOnly]"
+						}
+					}`,
 				},
 			},
 
@@ -1243,26 +1243,26 @@ var _ = framework.KubeDescribe("Authorization tests", func() {
 					"apiVersion": "authorization.k8s.io/v1beta1",
 					"kind": "SubjectAccessReview",
 					"spec": {
-					"resourceAttributes": {
-						"namespace": "coffeepot",
-						"verb": "proxy",
-						"group": "",
-						"resource": "services"
-					},
-					"user": "mkerk",
-					"group": ["ReadOnly"]
+						"resourceAttributes": {
+							"namespace": "coffeepot",
+							"verb": "proxy",
+							"group": "",
+							"resource": "services"
+						},
+						"user": "mkerk",
+						"group": ["ReadOnly"]
 					}
 				}`,
 				expect: expect{
 					status: http.StatusCreated,
 					body: `{
-					"apiVersion": "authorization.k8s.io/v1beta1",
-					"kind": "SubjectAccessReview",
-					"status": {
-						"allowed": false,
-						"reason": "unauthorized access mkerk/[ReadOnly]"
-					}
-				}}`,
+						"apiVersion": "authorization.k8s.io/v1beta1",
+						"kind": "SubjectAccessReview",
+						"status": {
+							"allowed": false,
+							"reason": "unauthorized access mkerk/[ReadOnly]"
+						}
+					}`,
 				},
 			},
 
@@ -1274,26 +1274,26 @@ var _ = framework.KubeDescribe("Authorization tests", func() {
 					"apiVersion": "authorization.k8s.io/v1beta1",
 					"kind": "SubjectAccessReview",
 					"spec": {
-					"resourceAttributes": {
-						"namespace": "coffeepot",
-						"verb": "create",
-						"group": "",
-						"resource": "secrets"
-					},
-					"user": "mkerk",
-					"group": ["ReadOnly"]
+						"resourceAttributes": {
+							"namespace": "coffeepot",
+							"verb": "create",
+							"group": "",
+							"resource": "secrets"
+						},
+						"user": "mkerk",
+						"group": ["ReadOnly"]
 					}
 				}`,
 				expect: expect{
 					status: http.StatusCreated,
 					body: `{
-					"apiVersion": "authorization.k8s.io/v1beta1",
-					"kind": "SubjectAccessReview",
-					"status": {
-						"allowed": false,
-						"reason": "unauthorized access mkerk/[ReadOnly]"
-					}
-				}}`,
+						"apiVersion": "authorization.k8s.io/v1beta1",
+						"kind": "SubjectAccessReview",
+						"status": {
+							"allowed": false,
+							"reason": "unauthorized access mkerk/[ReadOnly]"
+						}
+					}`,
 				},
 			},
 
@@ -1304,28 +1304,28 @@ var _ = framework.KubeDescribe("Authorization tests", func() {
 					"apiVersion": "authorization.k8s.io/v1beta1",
 					"kind": "SubjectAccessReview",
 					"spec": {
-					"resourceAttributes": {
-						"namespace": "default",
-						"verb": "delete",
-						"group": "",
-						"resource": "pods"
-					},
-					"user": "rdifazio",
-					"group": [
-						"ReadOnly"
-					]
+						"resourceAttributes": {
+							"namespace": "default",
+							"verb": "delete",
+							"group": "",
+							"resource": "pods"
+						},
+						"user": "rdifazio",
+						"group": [
+							"ReadOnly"
+						]
 					}
 				}`,
 				expect: expect{
 					status: http.StatusCreated,
 					body: `{
-					"apiVersion": "authorization.k8s.io/v1beta1",
-					"kind": "SubjectAccessReview",
-					"status": {
-						"allowed": false,
-						"reason":"unauthorized access rdifazio/[ReadOnly]"
-					}
-				}}`,
+						"apiVersion": "authorization.k8s.io/v1beta1",
+						"kind": "SubjectAccessReview",
+						"status": {
+							"allowed": false,
+							"reason":"unauthorized access rdifazio/[ReadOnly]"
+						}
+					}`,
 				},
 			},
 
@@ -1336,28 +1336,28 @@ var _ = framework.KubeDescribe("Authorization tests", func() {
 					"apiVersion": "authorization.k8s.io/v1beta1",
 					"kind": "SubjectAccessReview",
 					"spec": {
-					"resourceAttributes": {
-						"namespace": "default",
-						"verb": "delete",
-						"group": "",
-						"resource": "pods"
-					},
-					"user": "rdifazio",
-					"group": [
-						"ReadOnly",
-						"Manual"
-					]
+						"resourceAttributes": {
+							"namespace": "default",
+							"verb": "delete",
+							"group": "",
+							"resource": "pods"
+						},
+						"user": "rdifazio",
+						"group": [
+							"ReadOnly",
+							"Manual"
+						]
 					}
 				}`,
 				expect: expect{
 					status: http.StatusCreated,
 					body: `{
-					"apiVersion": "authorization.k8s.io/v1beta1",
-					"kind": "SubjectAccessReview",
-					"status": {
-						"allowed": true
-					}
-				}}`,
+						"apiVersion": "authorization.k8s.io/v1beta1",
+						"kind": "SubjectAccessReview",
+						"status": {
+							"allowed": true
+						}
+					}`,
 				},
 			},
 
@@ -1368,30 +1368,30 @@ var _ = framework.KubeDescribe("Authorization tests", func() {
 					"apiVersion": "authorization.k8s.io/v1beta1",
 					"kind": "SubjectAccessReview",
 					"spec": {
-					"resourceAttributes": {
-						"namespace": "kube-system",
-						"verb": "delete",
-						"group": "",
-						"resource": "pods"
-					},
-					"user": "rdifazio",
-					"group": [
-						"ReadOnly",
-						"Manual"
-					]
+						"resourceAttributes": {
+							"namespace": "kube-system",
+							"verb": "delete",
+							"group": "",
+							"resource": "pods"
+						},
+						"user": "rdifazio",
+						"group": [
+							"ReadOnly",
+							"Manual"
+						]
 					}
 				}`,
 				expect: expect{
 					status: http.StatusCreated,
 					body: `{
-					"apiVersion": "authorization.k8s.io/v1beta1",
-					"kind": "SubjectAccessReview",
-					"status": {
-						"allowed": false,
-						"denied": true,
-						"reason":"unauthorized access rdifazio/[ReadOnly Manual]"
-					}
-				}}`,
+						"apiVersion": "authorization.k8s.io/v1beta1",
+						"kind": "SubjectAccessReview",
+						"status": {
+							"allowed": false,
+							"denied": true,
+							"reason":"unauthorized access rdifazio/[ReadOnly Manual]"
+						}
+					}`,
 				},
 			},
 
@@ -1402,28 +1402,28 @@ var _ = framework.KubeDescribe("Authorization tests", func() {
 					"apiVersion": "authorization.k8s.io/v1beta1",
 					"kind": "SubjectAccessReview",
 					"spec": {
-					"resourceAttributes": {
-						"namespace": "",
-						"verb": "delete",
-						"group": "",
-						"resource": "namespaces"
-					},
-					"user": "rdifazio",
-					"group": [
-						"ReadOnly",
-						"Manual"
-					]
+						"resourceAttributes": {
+							"namespace": "",
+							"verb": "delete",
+							"group": "",
+							"resource": "namespaces"
+						},
+						"user": "rdifazio",
+						"group": [
+							"ReadOnly",
+							"Manual"
+						]
 					}
 				}`,
 				expect: expect{
 					status: http.StatusCreated,
 					body: `{
-					"apiVersion": "authorization.k8s.io/v1beta1",
-					"kind": "SubjectAccessReview",
-					"status": {
-						"allowed": true
-					}
-				}}`,
+						"apiVersion": "authorization.k8s.io/v1beta1",
+						"kind": "SubjectAccessReview",
+						"status": {
+							"allowed": true
+						}
+					}`,
 				},
 			},
 
@@ -1434,30 +1434,30 @@ var _ = framework.KubeDescribe("Authorization tests", func() {
 					"apiVersion": "authorization.k8s.io/v1beta1",
 					"kind": "SubjectAccessReview",
 					"spec": {
-					"resourceAttributes": {
-						"verb": "delete",
-						"group": "",
-						"resource": "namespaces",
-						"name": "kube-system"
-					},
-					"user": "rdifazio",
-					"group": [
-						"ReadOnly",
-						"Manual"
-					]
+						"resourceAttributes": {
+							"verb": "delete",
+							"group": "",
+							"resource": "namespaces",
+							"name": "kube-system"
+						},
+						"user": "rdifazio",
+						"group": [
+							"ReadOnly",
+							"Manual"
+						]
 					}
 				}`,
 				expect: expect{
 					status: http.StatusCreated,
 					body: `{
-					"apiVersion": "authorization.k8s.io/v1beta1",
-					"kind": "SubjectAccessReview",
-					"status": {
-						"allowed": false,
-						"denied": true,
-						"reason":"unauthorized access rdifazio/[ReadOnly Manual]"
-					}
-				}}`,
+						"apiVersion": "authorization.k8s.io/v1beta1",
+						"kind": "SubjectAccessReview",
+						"status": {
+							"allowed": false,
+							"denied": true,
+							"reason":"unauthorized access rdifazio/[ReadOnly Manual]"
+						}
+					}`,
 				},
 			},
 
@@ -1468,28 +1468,28 @@ var _ = framework.KubeDescribe("Authorization tests", func() {
 					"apiVersion": "authorization.k8s.io/v1beta1",
 					"kind": "SubjectAccessReview",
 					"spec": {
-					"resourceAttributes": {
-						"namespace": "default",
-						"verb": "create",
-						"group": "",
-						"resource": "pods"
-					},
-					"user": "rdifazio",
-					"group": [
-						"ReadOnly",
-						"Manual"
-					]
+						"resourceAttributes": {
+							"namespace": "default",
+							"verb": "create",
+							"group": "",
+							"resource": "pods"
+						},
+						"user": "rdifazio",
+						"group": [
+							"ReadOnly",
+							"Manual"
+						]
 					}
 				}`,
 				expect: expect{
 					status: http.StatusCreated,
 					body: `{
-					"apiVersion": "authorization.k8s.io/v1beta1",
-					"kind": "SubjectAccessReview",
-					"status": {
-						"allowed": true
-					}
-				}}`,
+						"apiVersion": "authorization.k8s.io/v1beta1",
+						"kind": "SubjectAccessReview",
+						"status": {
+							"allowed": true
+						}
+					}`,
 				},
 			},
 
@@ -1500,28 +1500,28 @@ var _ = framework.KubeDescribe("Authorization tests", func() {
 					"apiVersion": "authorization.k8s.io/v1beta1",
 					"kind": "SubjectAccessReview",
 					"spec": {
-					"resourceAttributes": {
-						"namespace": "default",
-						"verb": "get",
-						"group": "",
-						"resource": "pods"
-					},
-					"user": "rdifazio",
-					"group": [
-						"ReadOnly",
-						"Manual"
-					]
+						"resourceAttributes": {
+							"namespace": "default",
+							"verb": "get",
+							"group": "",
+							"resource": "pods"
+						},
+						"user": "rdifazio",
+						"group": [
+							"ReadOnly",
+							"Manual"
+						]
 					}
 				}`,
 				expect: expect{
 					status: http.StatusCreated,
 					body: `{
-					"apiVersion": "authorization.k8s.io/v1beta1",
-					"kind": "SubjectAccessReview",
-					"status": {
-						"allowed": true
-					}
-				}}`,
+						"apiVersion": "authorization.k8s.io/v1beta1",
+						"kind": "SubjectAccessReview",
+						"status": {
+							"allowed": true
+						}
+					}`,
 				},
 			},
 
@@ -1532,28 +1532,28 @@ var _ = framework.KubeDescribe("Authorization tests", func() {
 					"apiVersion": "authorization.k8s.io/v1beta1",
 					"kind": "SubjectAccessReview",
 					"spec": {
-					"resourceAttributes": {
-						"name": "restricted",
-						"namespace": "",
-						"verb": "use",
-						"group": "extensions",
-						"resource": "podsecuritypolicies"
-					},
-					"user": "sszuecs",
-					"group": [
-						"%s"
-					]
+						"resourceAttributes": {
+							"name": "restricted",
+							"namespace": "",
+							"verb": "use",
+							"group": "extensions",
+							"resource": "podsecuritypolicies"
+						},
+						"user": "sszuecs",
+						"group": [
+							"%s"
+						]
 					}
 				}`, systemMastersGroup),
 				expect: expect{
 					status: http.StatusCreated,
 					body: `{
-					"apiVersion": "authorization.k8s.io/v1beta1",
-					"kind": "SubjectAccessReview",
-					"status": {
-						"allowed": true
-					}
-				}}`,
+						"apiVersion": "authorization.k8s.io/v1beta1",
+						"kind": "SubjectAccessReview",
+						"status": {
+							"allowed": true
+						}
+					}`,
 				},
 			},
 
@@ -1564,28 +1564,28 @@ var _ = framework.KubeDescribe("Authorization tests", func() {
 					"apiVersion": "authorization.k8s.io/v1beta1",
 					"kind": "SubjectAccessReview",
 					"spec": {
-					"resourceAttributes": {
-						"name": "privileged",
-						"namespace": "",
-						"verb": "use",
-						"group": "extensions",
-						"resource": "podsecuritypolicies"
-					},
-					"user": "sszuecs",
-					"group": [
-						"%s"
-					]
+						"resourceAttributes": {
+							"name": "privileged",
+							"namespace": "",
+							"verb": "use",
+							"group": "extensions",
+							"resource": "podsecuritypolicies"
+						},
+						"user": "sszuecs",
+						"group": [
+							"%s"
+						]
 					}
 				}`, systemMastersGroup),
 				expect: expect{
 					status: http.StatusCreated,
 					body: `{
-					"apiVersion": "authorization.k8s.io/v1beta1",
-					"kind": "SubjectAccessReview",
-					"status": {
-						"allowed": true
-					}
-				}}`,
+						"apiVersion": "authorization.k8s.io/v1beta1",
+						"kind": "SubjectAccessReview",
+						"status": {
+							"allowed": true
+						}
+					}`,
 				},
 			},
 
@@ -1596,28 +1596,28 @@ var _ = framework.KubeDescribe("Authorization tests", func() {
 					"apiVersion": "authorization.k8s.io/v1beta1",
 					"kind": "SubjectAccessReview",
 					"spec": {
-					"resourceAttributes": {
-						"name": "privileged",
-						"namespace": "",
-						"verb": "use",
-						"group": "extensions",
-						"resource": "podsecuritypolicies"
-					},
-					"user": "sszuecs",
-					"group": [
-						"%s"
-					]
+						"resourceAttributes": {
+							"name": "privileged",
+							"namespace": "",
+							"verb": "use",
+							"group": "extensions",
+							"resource": "podsecuritypolicies"
+						},
+						"user": "sszuecs",
+						"group": [
+							"%s"
+						]
 					}
 				}`, systemMastersGroup),
 				expect: expect{
 					status: http.StatusCreated,
 					body: `{
-					"apiVersion": "authorization.k8s.io/v1beta1",
-					"kind": "SubjectAccessReview",
-					"status": {
-						"allowed": true
-					}
-				}}`,
+						"apiVersion": "authorization.k8s.io/v1beta1",
+						"kind": "SubjectAccessReview",
+						"status": {
+							"allowed": true
+						}
+					}`,
 				},
 			},
 
@@ -1628,24 +1628,24 @@ var _ = framework.KubeDescribe("Authorization tests", func() {
 					"apiVersion": "authorization.k8s.io/v1beta1",
 					"kind": "SubjectAccessReview",
 					"spec": {
-					"resourceAttributes": {
-						"namespace": "",
-						"verb": "list",
-						"group": "extensions",
-						"resource": "podsecuritypolicies"
-					},
-					"user": "system:kube-controller-manager"
+						"resourceAttributes": {
+							"namespace": "",
+							"verb": "list",
+							"group": "extensions",
+							"resource": "podsecuritypolicies"
+						},
+						"user": "system:kube-controller-manager"
 					}
 				}`,
 				expect: expect{
 					status: http.StatusCreated,
 					body: `{
-					"apiVersion": "authorization.k8s.io/v1beta1",
-					"kind": "SubjectAccessReview",
-					"status": {
-						"allowed": true
-					}
-				}}`,
+						"apiVersion": "authorization.k8s.io/v1beta1",
+						"kind": "SubjectAccessReview",
+						"status": {
+							"allowed": true
+						}
+					}`,
 				},
 			},
 
@@ -1656,27 +1656,27 @@ var _ = framework.KubeDescribe("Authorization tests", func() {
 					"apiVersion": "authorization.k8s.io/v1beta1",
 					"kind": "SubjectAccessReview",
 					"spec": {
-					"resourceAttributes": {
-						"namespace": "kube-system",
-						"verb": "get",
-						"group": "",
-						"resource": "pods"
-					},
-					"user": "rdifazio",
-					"group": [
-						"system:masters"
-					]
+						"resourceAttributes": {
+							"namespace": "kube-system",
+							"verb": "get",
+							"group": "",
+							"resource": "pods"
+						},
+						"user": "rdifazio",
+						"group": [
+							"system:masters"
+						]
 					}
 				}`,
 				expect: expect{
 					status: http.StatusCreated,
 					body: `{
-					"apiVersion": "authorization.k8s.io/v1beta1",
-					"kind": "SubjectAccessReview",
-					"status": {
-						"allowed": true
-					}
-				}}`,
+						"apiVersion": "authorization.k8s.io/v1beta1",
+						"kind": "SubjectAccessReview",
+						"status": {
+							"allowed": true
+						}
+					}`,
 				},
 			},
 			//- administrator has write access to kube system
@@ -1686,27 +1686,27 @@ var _ = framework.KubeDescribe("Authorization tests", func() {
 					"apiVersion": "authorization.k8s.io/v1beta1",
 					"kind": "SubjectAccessReview",
 					"spec": {
-					"resourceAttributes": {
-						"namespace": "kube-system",
-						"verb": "create",
-						"group": "",
-						"resource": "pods"
-					},
-					"user": "rdifazio",
-					"group": [
-						"system:masters"
-					]
+						"resourceAttributes": {
+							"namespace": "kube-system",
+							"verb": "create",
+							"group": "",
+							"resource": "pods"
+						},
+						"user": "rdifazio",
+						"group": [
+							"system:masters"
+						]
 					}
 				}`,
 				expect: expect{
 					status: http.StatusCreated,
 					body: `{
-					"apiVersion": "authorization.k8s.io/v1beta1",
-					"kind": "SubjectAccessReview",
-					"status": {
-						"allowed": true
-					}
-				}}`,
+						"apiVersion": "authorization.k8s.io/v1beta1",
+						"kind": "SubjectAccessReview",
+						"status": {
+							"allowed": true
+						}
+					}`,
 				},
 			},
 			//- administrator can read secrets from kube-system namespaces
@@ -1716,27 +1716,27 @@ var _ = framework.KubeDescribe("Authorization tests", func() {
 					"apiVersion": "authorization.k8s.io/v1beta1",
 					"kind": "SubjectAccessReview",
 					"spec": {
-					"resourceAttributes": {
-						"namespace": "kube-system",
-						"verb": "get",
-						"group": "",
-						"resource": "secrets"
-					},
-					"user": "rdifazio",
-					"group": [
-						"system:masters"
-					]
+						"resourceAttributes": {
+							"namespace": "kube-system",
+							"verb": "get",
+							"group": "",
+							"resource": "secrets"
+						},
+						"user": "rdifazio",
+						"group": [
+							"system:masters"
+						]
 					}
 				}`,
 				expect: expect{
 					status: http.StatusCreated,
 					body: `{
-					"apiVersion": "authorization.k8s.io/v1beta1",
-					"kind": "SubjectAccessReview",
-					"status": {
-						"allowed": true
-					}
-				}}`,
+						"apiVersion": "authorization.k8s.io/v1beta1",
+						"kind": "SubjectAccessReview",
+						"status": {
+							"allowed": true
+						}
+					}`,
 				},
 			},
 			//- administrator can read secrets from non kube-system namespaces
@@ -1746,27 +1746,27 @@ var _ = framework.KubeDescribe("Authorization tests", func() {
 					"apiVersion": "authorization.k8s.io/v1beta1",
 					"kind": "SubjectAccessReview",
 					"spec": {
-					"resourceAttributes": {
-						"namespace": "teapot",
-						"verb": "get",
-						"group": "",
-						"resource": "secrets"
-					},
-					"user": "rdifazio",
-					"group": [
-						"system:masters"
-					]
+						"resourceAttributes": {
+							"namespace": "teapot",
+							"verb": "get",
+							"group": "",
+							"resource": "secrets"
+						},
+						"user": "rdifazio",
+						"group": [
+							"system:masters"
+						]
 					}
 				}`,
 				expect: expect{
 					status: http.StatusCreated,
 					body: `{
-					"apiVersion": "authorization.k8s.io/v1beta1",
-					"kind": "SubjectAccessReview",
-					"status": {
-						"allowed": true
-					}
-				}}`,
+						"apiVersion": "authorization.k8s.io/v1beta1",
+						"kind": "SubjectAccessReview",
+						"status": {
+							"allowed": true
+						}
+					}`,
 				},
 			},
 			//- administrator has write access to non kube-system namespaces
@@ -1776,27 +1776,27 @@ var _ = framework.KubeDescribe("Authorization tests", func() {
 					"apiVersion": "authorization.k8s.io/v1beta1",
 					"kind": "SubjectAccessReview",
 					"spec": {
-					"resourceAttributes": {
-						"namespace": "teapot",
-						"verb": "create",
-						"group": "",
-						"resource": "pods"
-					},
-					"user": "rdifazio",
-					"group": [
-						"system:masters"
-					]
+						"resourceAttributes": {
+							"namespace": "teapot",
+							"verb": "create",
+							"group": "",
+							"resource": "pods"
+						},
+						"user": "rdifazio",
+						"group": [
+							"system:masters"
+						]
 					}
 				}`,
 				expect: expect{
 					status: http.StatusCreated,
 					body: `{
-					"apiVersion": "authorization.k8s.io/v1beta1",
-					"kind": "SubjectAccessReview",
-					"status": {
-						"allowed": true
-					}
-				}}`,
+						"apiVersion": "authorization.k8s.io/v1beta1",
+						"kind": "SubjectAccessReview",
+						"status": {
+							"allowed": true
+						}
+					}`,
 				},
 			},
 			//- TODO administrator has exec right
@@ -1808,26 +1808,26 @@ var _ = framework.KubeDescribe("Authorization tests", func() {
 					"apiVersion": "authorization.k8s.io/v1beta1",
 					"kind": "SubjectAccessReview",
 					"spec": {
-					"resourceAttributes": {
-						"namespace": "teapot",
-						"verb": "proxy",
-						"group": ""
-					},
-					"user": "sszuecs",
-					"group": [
-						"system:masters"
-					]
+						"resourceAttributes": {
+							"namespace": "teapot",
+							"verb": "proxy",
+							"group": ""
+						},
+						"user": "sszuecs",
+						"group": [
+							"system:masters"
+						]
 					}
 				}`,
 				expect: expect{
 					status: http.StatusCreated,
 					body: `{
-					"apiVersion": "authorization.k8s.io/v1beta1",
-					"kind": "SubjectAccessReview",
-					"status": {
-						"allowed": true
-					}
-				}}`,
+						"apiVersion": "authorization.k8s.io/v1beta1",
+						"kind": "SubjectAccessReview",
+						"status": {
+							"allowed": true
+						}
+					}`,
 				},
 			},
 			//- administrator can write daemonsets
@@ -1837,27 +1837,27 @@ var _ = framework.KubeDescribe("Authorization tests", func() {
 					"apiVersion": "authorization.k8s.io/v1beta1",
 					"kind": "SubjectAccessReview",
 					"spec": {
-					"resourceAttributes": {
-						"namespace": "teapot",
-						"verb": "create",
-						"group": "apps",
-						"resource": "daemonsets"
-					},
-					"user": "sszuecs",
-					"group": [
-						"system:masters"
-					]
+						"resourceAttributes": {
+							"namespace": "teapot",
+							"verb": "create",
+							"group": "apps",
+							"resource": "daemonsets"
+						},
+						"user": "sszuecs",
+						"group": [
+							"system:masters"
+						]
 					}
 				}`,
 				expect: expect{
 					status: http.StatusCreated,
 					body: `{
-					"apiVersion": "authorization.k8s.io/v1beta1",
-					"kind": "SubjectAccessReview",
-					"status": {
-						"allowed": true
-					}
-				}}`,
+						"apiVersion": "authorization.k8s.io/v1beta1",
+						"kind": "SubjectAccessReview",
+						"status": {
+							"allowed": true
+						}
+					}`,
 				},
 			},
 			{
@@ -1866,25 +1866,25 @@ var _ = framework.KubeDescribe("Authorization tests", func() {
 					"apiVersion": "authorization.k8s.io/v1beta1",
 					"kind": "SubjectAccessReview",
 					"spec": {
-					"resourceAttributes": {
-						"namespace": "",
-						"verb": "create",
-						"group": "",
-						"resource": "namespaces"
-					},
-					"user": "system:serviceaccount:default:cdp",
-					"group": []
+						"resourceAttributes": {
+							"namespace": "",
+							"verb": "create",
+							"group": "",
+							"resource": "namespaces"
+						},
+						"user": "system:serviceaccount:default:cdp",
+						"group": []
 					}
 				}`,
 				expect: expect{
 					status: http.StatusCreated,
 					body: `{
-					"apiVersion": "authorization.k8s.io/v1beta1",
-					"kind": "SubjectAccessReview",
-					"status": {
-						"allowed": true
-					}
-				}}`,
+						"apiVersion": "authorization.k8s.io/v1beta1",
+						"kind": "SubjectAccessReview",
+						"status": {
+							"allowed": true
+						}
+					}`,
 				},
 			},
 			{
@@ -1893,54 +1893,54 @@ var _ = framework.KubeDescribe("Authorization tests", func() {
 					"apiVersion": "authorization.k8s.io/v1beta1",
 					"kind": "SubjectAccessReview",
 					"spec": {
-					"resourceAttributes": {
-						"namespace": "",
-						"verb": "escalate",
-						"group": "rbac.authorization.k8s.io",
-						"resource": "clusterroles"
-					},
-					"user": "system:serviceaccount:default:cdp",
-					"group": []
+						"resourceAttributes": {
+							"namespace": "",
+							"verb": "escalate",
+							"group": "rbac.authorization.k8s.io",
+							"resource": "clusterroles"
+						},
+						"user": "system:serviceaccount:default:cdp",
+						"group": []
 					}
 				}`,
 				expect: expect{
 					status: http.StatusCreated,
 					body: `{
-					"apiVersion": "authorization.k8s.io/v1beta1",
-					"kind": "SubjectAccessReview",
-					"status": {
-						"allowed": false,
-						"denied": true
-					}
-				}}`,
+						"apiVersion": "authorization.k8s.io/v1beta1",
+						"kind": "SubjectAccessReview",
+						"status": {
+							"allowed": false,
+							"denied": true
+						}
+					}`,
 				},
 			},
 			{
 				msg: "PowerUsers can't escalate permissions",
 				reqBody: `{
-				"apiVersion": "authorization.k8s.io/v1beta1",
-				"kind": "SubjectAccessReview",
-				"spec": {
-				"resourceAttributes": {
-					"namespace": "",
-					"verb": "escalate",
-					"group": "rbac.authorization.k8s.io",
-					"resource": "clusterroles"
-				},
-				"user": "mlarsen",
-				"group": ["PowerUser"]
-				}
-			}`,
+					"apiVersion": "authorization.k8s.io/v1beta1",
+					"kind": "SubjectAccessReview",
+					"spec": {
+						"resourceAttributes": {
+							"namespace": "",
+							"verb": "escalate",
+							"group": "rbac.authorization.k8s.io",
+							"resource": "clusterroles"
+						},
+						"user": "mlarsen",
+						"group": ["PowerUser"]
+					}
+				}`,
 				expect: expect{
 					status: http.StatusCreated,
 					body: `{
-				"apiVersion": "authorization.k8s.io/v1beta1",
-				"kind": "SubjectAccessReview",
-				"status": {
-					"allow": false,
-					"denied": true
-				}
-			}}`,
+						"apiVersion": "authorization.k8s.io/v1beta1",
+						"kind": "SubjectAccessReview",
+						"status": {
+							"allow": false,
+							"denied": true
+						}
+					}`,
 				},
 			},
 			{
@@ -1949,26 +1949,26 @@ var _ = framework.KubeDescribe("Authorization tests", func() {
 					"apiVersion": "authorization.k8s.io/v1beta1",
 					"kind": "SubjectAccessReview",
 					"spec": {
-					"resourceAttributes": {
-						"namespace": "",
-						"verb": "create",
-						"group": "",
-						"resource": "namespaces"
-					},
-					"user": "system:serviceaccount:default:operator",
-					"group": []
+						"resourceAttributes": {
+							"namespace": "",
+							"verb": "create",
+							"group": "",
+							"resource": "namespaces"
+						},
+						"user": "system:serviceaccount:default:operator",
+						"group": []
 					}
 				}`,
 				expect: expect{
 					status: http.StatusCreated,
 					body: `{
-					"apiVersion": "authorization.k8s.io/v1beta1",
-					"kind": "SubjectAccessReview",
-					"status": {
-						"allowed": false,
-						"reason": "unauthorized access system:serviceaccount:default:operator/[]"
-					}
-				}}`,
+						"apiVersion": "authorization.k8s.io/v1beta1",
+						"kind": "SubjectAccessReview",
+						"status": {
+							"allowed": false,
+							"reason": "unauthorized access system:serviceaccount:default:operator/[]"
+						}
+					}`,
 				},
 			},
 			{
@@ -1977,25 +1977,25 @@ var _ = framework.KubeDescribe("Authorization tests", func() {
 					"apiVersion": "authorization.k8s.io/v1beta1",
 					"kind": "SubjectAccessReview",
 					"spec": {
-					"resourceAttributes": {
-						"namespace": "kube-system",
-						"verb": "create",
-						"group": "",
-						"resource": "pods"
-					},
-					"user": "system:serviceaccount:kube-system:daemon-set-controller",
-					"group": ["system:serviceaccounts:kube-system"]
+						"resourceAttributes": {
+							"namespace": "kube-system",
+							"verb": "create",
+							"group": "",
+							"resource": "pods"
+						},
+						"user": "system:serviceaccount:kube-system:daemon-set-controller",
+						"group": ["system:serviceaccounts:kube-system"]
 					}
 				}`,
 				expect: expect{
 					status: http.StatusCreated,
 					body: `{
-					"apiVersion": "authorization.k8s.io/v1beta1",
-					"kind": "SubjectAccessReview",
-					"status": {
-						"allowed": true
-					}
-				}}`,
+						"apiVersion": "authorization.k8s.io/v1beta1",
+						"kind": "SubjectAccessReview",
+						"status": {
+							"allowed": true
+						}
+					}`,
 				},
 			},
 			{
@@ -2004,25 +2004,25 @@ var _ = framework.KubeDescribe("Authorization tests", func() {
 					"apiVersion": "authorization.k8s.io/v1beta1",
 					"kind": "SubjectAccessReview",
 					"spec": {
-					"resourceAttributes": {
-						"namespace": "",
-						"verb": "get",
-						"group": "",
-						"resource": "persistentvolumes"
-					},
-					"user": "system:serviceaccount:default:operator",
-					"group": []
+						"resourceAttributes": {
+							"namespace": "",
+							"verb": "get",
+							"group": "",
+							"resource": "persistentvolumes"
+						},
+						"user": "system:serviceaccount:default:operator",
+						"group": []
 					}
 				}`,
 				expect: expect{
 					status: http.StatusCreated,
 					body: `{
-					"apiVersion": "authorization.k8s.io/v1beta1",
-					"kind": "SubjectAccessReview",
-					"status": {
-						"allowed": false
-					}
-				}}`,
+						"apiVersion": "authorization.k8s.io/v1beta1",
+						"kind": "SubjectAccessReview",
+						"status": {
+							"allowed": false
+						}
+					}`,
 				},
 			},
 			{
@@ -2031,26 +2031,26 @@ var _ = framework.KubeDescribe("Authorization tests", func() {
 					"apiVersion": "authorization.k8s.io/v1beta1",
 					"kind": "SubjectAccessReview",
 					"spec": {
-					"resourceAttributes": {
-						"namespace": "kube-system",
-						"verb": "update",
-						"group": "",
-						"resource": "persistentvolumeclaims"
-					},
-					"user": "system:serviceaccount:kube-system:persistent-volume-binder",
-					"group": ["system:serviceaccounts:kube-system"]
+						"resourceAttributes": {
+							"namespace": "kube-system",
+							"verb": "update",
+							"group": "",
+							"resource": "persistentvolumeclaims"
+						},
+						"user": "system:serviceaccount:kube-system:persistent-volume-binder",
+						"group": ["system:serviceaccounts:kube-system"]
 					}
 				}`,
 				expect: expect{
 					status: http.StatusCreated,
 					body: `{
-					"apiVersion": "authorization.k8s.io/v1beta1",
-					"kind": "SubjectAccessReview",
-					"status": {
-						"allowed": true,
-						"reason": ""
-					}
-				}}`,
+						"apiVersion": "authorization.k8s.io/v1beta1",
+						"kind": "SubjectAccessReview",
+						"status": {
+							"allowed": true,
+							"reason": ""
+						}
+					}`,
 				},
 			},
 			{
@@ -2059,26 +2059,26 @@ var _ = framework.KubeDescribe("Authorization tests", func() {
 					"apiVersion": "authorization.k8s.io/v1beta1",
 					"kind": "SubjectAccessReview",
 					"spec": {
-					"resourceAttributes": {
-						"namespace": "kube-system",
-						"verb": "create",
-						"group": "",
-						"resource": "persistentvolumes"
-					},
-					"user": "system:serviceaccount:kube-system:persistent-volume-binder",
-					"group": ["system:serviceaccounts:kube-system"]
+						"resourceAttributes": {
+							"namespace": "kube-system",
+							"verb": "create",
+							"group": "",
+							"resource": "persistentvolumes"
+						},
+						"user": "system:serviceaccount:kube-system:persistent-volume-binder",
+						"group": ["system:serviceaccounts:kube-system"]
 					}
 				}`,
 				expect: expect{
 					status: http.StatusCreated,
 					body: `{
-					"apiVersion": "authorization.k8s.io/v1beta1",
-					"kind": "SubjectAccessReview",
-					"status": {
-						"allowed": true,
-						"reason": ""
-					}
-				}}`,
+						"apiVersion": "authorization.k8s.io/v1beta1",
+						"kind": "SubjectAccessReview",
+						"status": {
+							"allowed": true,
+							"reason": ""
+						}
+					}`,
 				},
 			},
 			{
@@ -2087,26 +2087,26 @@ var _ = framework.KubeDescribe("Authorization tests", func() {
 					"apiVersion": "authorization.k8s.io/v1beta1",
 					"kind": "SubjectAccessReview",
 					"spec": {
-					"resourceAttributes": {
-						"namespace": "kube-system",
-						"verb": "update",
-						"group": "*",
-						"resource": "*/scale"
-					},
-					"user": "system:serviceaccount:kube-system:horizontal-pod-autoscaler",
-					"group": ["system:serviceaccounts:kube-system"]
+						"resourceAttributes": {
+							"namespace": "kube-system",
+							"verb": "update",
+							"group": "*",
+							"resource": "*/scale"
+						},
+						"user": "system:serviceaccount:kube-system:horizontal-pod-autoscaler",
+						"group": ["system:serviceaccounts:kube-system"]
 					}
 				}`,
 				expect: expect{
 					status: http.StatusCreated,
 					body: `{
-					"apiVersion": "authorization.k8s.io/v1beta1",
-					"kind": "SubjectAccessReview",
-					"status": {
-						"allowed": true,
-						"reason": ""
-					}
-				}}`,
+						"apiVersion": "authorization.k8s.io/v1beta1",
+						"kind": "SubjectAccessReview",
+						"status": {
+							"allowed": true,
+							"reason": ""
+						}
+					}`,
 				},
 			},
 			{
@@ -2115,26 +2115,26 @@ var _ = framework.KubeDescribe("Authorization tests", func() {
 					"apiVersion": "authorization.k8s.io/v1beta1",
 					"kind": "SubjectAccessReview",
 					"spec": {
-					"resourceAttributes": {
-						"namespace": "*",
-						"verb": "update",
-						"group": "*",
-						"resource": "*/scale"
-					},
-					"user": "system:serviceaccount:kube-system:horizontal-pod-autoscaler",
-					"group": ["system:serviceaccounts:kube-system"]
+						"resourceAttributes": {
+							"namespace": "*",
+							"verb": "update",
+							"group": "*",
+							"resource": "*/scale"
+						},
+						"user": "system:serviceaccount:kube-system:horizontal-pod-autoscaler",
+						"group": ["system:serviceaccounts:kube-system"]
 					}
 				}`,
 				expect: expect{
 					status: http.StatusCreated,
 					body: `{
-					"apiVersion": "authorization.k8s.io/v1beta1",
-					"kind": "SubjectAccessReview",
-					"status": {
-						"allowed": true,
-						"reason": ""
-					}
-				}}`,
+						"apiVersion": "authorization.k8s.io/v1beta1",
+						"kind": "SubjectAccessReview",
+						"status": {
+							"allowed": true,
+							"reason": ""
+						}
+					}`,
 				},
 			},
 			{
@@ -2143,25 +2143,25 @@ var _ = framework.KubeDescribe("Authorization tests", func() {
 					"apiVersion": "authorization.k8s.io/v1beta1",
 					"kind": "SubjectAccessReview",
 					"spec": {
-					"resourceAttributes": {
-						"verb": "patch",
-						"group": "",
-						"resource": "nodes"
-					},
-					"user": "system:serviceaccount:kube-system:aws-cloud-provider",
-					"group": ["system:serviceaccounts:kube-system"]
+						"resourceAttributes": {
+							"verb": "patch",
+							"group": "",
+							"resource": "nodes"
+						},
+						"user": "system:serviceaccount:kube-system:aws-cloud-provider",
+						"group": ["system:serviceaccounts:kube-system"]
 					}
 				}`,
 				expect: expect{
 					status: http.StatusCreated,
 					body: `{
-					"apiVersion": "authorization.k8s.io/v1beta1",
-					"kind": "SubjectAccessReview",
-					"status": {
-						"allowed": true,
-						"reason": ""
-					}
-				}}`,
+						"apiVersion": "authorization.k8s.io/v1beta1",
+						"kind": "SubjectAccessReview",
+						"status": {
+							"allowed": true,
+							"reason": ""
+						}
+					}`,
 				},
 			},
 			{
@@ -2170,16 +2170,16 @@ var _ = framework.KubeDescribe("Authorization tests", func() {
 					"apiVersion": "authorization.k8s.io/v1beta1",
 					"kind": "SubjectAccessReview",
 					"spec": {
-					"resourceAttributes": {
-						"namespace": "",
-						"verb": "update",
-						"group": "",
-						"resource": "nodes"
-					},
-					"user": "sszuecs",
-					"group": [
-						"%s"
-					]
+						"resourceAttributes": {
+							"namespace": "",
+							"verb": "update",
+							"group": "",
+							"resource": "nodes"
+						},
+						"user": "sszuecs",
+						"group": [
+							"%s"
+						]
 					}
 				}`, emergencyGroup),
 				expect: expect{
@@ -2190,7 +2190,7 @@ var _ = framework.KubeDescribe("Authorization tests", func() {
 						"status": {
 							"allowed": false
 						}
-				}}`,
+					}`,
 				},
 			},
 			{
@@ -2199,16 +2199,16 @@ var _ = framework.KubeDescribe("Authorization tests", func() {
 					"apiVersion": "authorization.k8s.io/v1beta1",
 					"kind": "SubjectAccessReview",
 					"spec": {
-					"resourceAttributes": {
-						"namespace": "",
-						"verb": "update",
-						"group": "",
-						"resource": "nodes"
-					},
-					"user": "sszuecs",
-					"group": [
-						"%s"
-					]
+						"resourceAttributes": {
+							"namespace": "",
+							"verb": "update",
+							"group": "",
+							"resource": "nodes"
+						},
+						"user": "sszuecs",
+						"group": [
+							"%s"
+						]
 					}
 				}`, manualGroup),
 				expect: expect{
@@ -2219,7 +2219,7 @@ var _ = framework.KubeDescribe("Authorization tests", func() {
 						"status": {
 							"allowed": false
 						}
-				}}`,
+					}`,
 				},
 			},
 			{
@@ -2228,16 +2228,16 @@ var _ = framework.KubeDescribe("Authorization tests", func() {
 					"apiVersion": "authorization.k8s.io/v1beta1",
 					"kind": "SubjectAccessReview",
 					"spec": {
-					"resourceAttributes": {
-						"namespace": "",
-						"verb": "update",
-						"group": "",
-						"resource": "nodes"
-					},
-					"user": "sszuecs",
-					"group": [
-						"%s"
-					]
+						"resourceAttributes": {
+							"namespace": "",
+							"verb": "update",
+							"group": "",
+							"resource": "nodes"
+						},
+						"user": "sszuecs",
+						"group": [
+							"%s"
+						]
 					}
 				}`, powerUserGroup),
 				expect: expect{
@@ -2248,7 +2248,7 @@ var _ = framework.KubeDescribe("Authorization tests", func() {
 						"status": {
 							"allowed": false
 						}
-				}}`,
+					}`,
 				},
 			},
 			{
@@ -2257,16 +2257,16 @@ var _ = framework.KubeDescribe("Authorization tests", func() {
 					"apiVersion": "authorization.k8s.io/v1beta1",
 					"kind": "SubjectAccessReview",
 					"spec": {
-					"resourceAttributes": {
-						"namespace": "",
-						"verb": "create",
-						"group": "",
-						"resource": "nodes"
-					},
-					"user": "sszuecs",
-					"group": [
-						"%s"
-					]
+						"resourceAttributes": {
+							"namespace": "",
+							"verb": "create",
+							"group": "",
+							"resource": "nodes"
+						},
+						"user": "sszuecs",
+						"group": [
+							"%s"
+						]
 					}
 				}`, emergencyGroup),
 				expect: expect{
@@ -2277,7 +2277,7 @@ var _ = framework.KubeDescribe("Authorization tests", func() {
 						"status": {
 							"allowed": false
 						}
-				}}`,
+					}`,
 				},
 			},
 			{
@@ -2286,16 +2286,16 @@ var _ = framework.KubeDescribe("Authorization tests", func() {
 					"apiVersion": "authorization.k8s.io/v1beta1",
 					"kind": "SubjectAccessReview",
 					"spec": {
-					"resourceAttributes": {
-						"namespace": "",
-						"verb": "create",
-						"group": "",
-						"resource": "nodes"
-					},
-					"user": "sszuecs",
-					"group": [
-						"%s"
-					]
+						"resourceAttributes": {
+							"namespace": "",
+							"verb": "create",
+							"group": "",
+							"resource": "nodes"
+						},
+						"user": "sszuecs",
+						"group": [
+							"%s"
+						]
 					}
 				}`, manualGroup),
 				expect: expect{
@@ -2306,7 +2306,7 @@ var _ = framework.KubeDescribe("Authorization tests", func() {
 						"status": {
 							"allowed": false
 						}
-				}}`,
+					}`,
 				},
 			},
 			{
@@ -2315,16 +2315,16 @@ var _ = framework.KubeDescribe("Authorization tests", func() {
 					"apiVersion": "authorization.k8s.io/v1beta1",
 					"kind": "SubjectAccessReview",
 					"spec": {
-					"resourceAttributes": {
-						"namespace": "",
-						"verb": "create",
-						"group": "",
-						"resource": "nodes"
-					},
-					"user": "sszuecs",
-					"group": [
-						"%s"
-					]
+						"resourceAttributes": {
+							"namespace": "",
+							"verb": "create",
+							"group": "",
+							"resource": "nodes"
+						},
+						"user": "sszuecs",
+						"group": [
+							"%s"
+						]
 					}
 				}`, powerUserGroup),
 				expect: expect{
@@ -2335,7 +2335,7 @@ var _ = framework.KubeDescribe("Authorization tests", func() {
 						"status": {
 							"allowed": false
 						}
-				}}`,
+					}`,
 				},
 			},
 			{
@@ -2344,16 +2344,16 @@ var _ = framework.KubeDescribe("Authorization tests", func() {
 					"apiVersion": "authorization.k8s.io/v1beta1",
 					"kind": "SubjectAccessReview",
 					"spec": {
-					"resourceAttributes": {
-						"namespace": "",
-						"verb": "patch",
-						"group": "",
-						"resource": "nodes"
-					},
-					"user": "sszuecs",
-					"group": [
-						"%s"
-					]
+						"resourceAttributes": {
+							"namespace": "",
+							"verb": "patch",
+							"group": "",
+							"resource": "nodes"
+						},
+						"user": "sszuecs",
+						"group": [
+							"%s"
+						]
 					}
 				}`, emergencyGroup),
 				expect: expect{
@@ -2364,7 +2364,7 @@ var _ = framework.KubeDescribe("Authorization tests", func() {
 						"status": {
 							"allowed": false
 						}
-				}}`,
+					}`,
 				},
 			},
 			{
@@ -2373,16 +2373,16 @@ var _ = framework.KubeDescribe("Authorization tests", func() {
 					"apiVersion": "authorization.k8s.io/v1beta1",
 					"kind": "SubjectAccessReview",
 					"spec": {
-					"resourceAttributes": {
-						"namespace": "",
-						"verb": "patch",
-						"group": "",
-						"resource": "nodes"
-					},
-					"user": "sszuecs",
-					"group": [
-						"%s"
-					]
+						"resourceAttributes": {
+							"namespace": "",
+							"verb": "patch",
+							"group": "",
+							"resource": "nodes"
+						},
+						"user": "sszuecs",
+						"group": [
+							"%s"
+						]
 					}
 				}`, manualGroup),
 				expect: expect{
@@ -2393,7 +2393,7 @@ var _ = framework.KubeDescribe("Authorization tests", func() {
 						"status": {
 							"allowed": false
 						}
-				}}`,
+					}`,
 				},
 			},
 			{
@@ -2402,16 +2402,16 @@ var _ = framework.KubeDescribe("Authorization tests", func() {
 					"apiVersion": "authorization.k8s.io/v1beta1",
 					"kind": "SubjectAccessReview",
 					"spec": {
-					"resourceAttributes": {
-						"namespace": "",
-						"verb": "patch",
-						"group": "",
-						"resource": "nodes"
-					},
-					"user": "sszuecs",
-					"group": [
-						"%s"
-					]
+						"resourceAttributes": {
+							"namespace": "",
+							"verb": "patch",
+							"group": "",
+							"resource": "nodes"
+						},
+						"user": "sszuecs",
+						"group": [
+							"%s"
+						]
 					}
 				}`, powerUserGroup),
 				expect: expect{
@@ -2422,7 +2422,7 @@ var _ = framework.KubeDescribe("Authorization tests", func() {
 						"status": {
 							"allowed": false
 						}
-				}}`,
+					}`,
 				},
 			},
 			{
@@ -2431,16 +2431,16 @@ var _ = framework.KubeDescribe("Authorization tests", func() {
 					"apiVersion": "authorization.k8s.io/v1beta1",
 					"kind": "SubjectAccessReview",
 					"spec": {
-					"resourceAttributes": {
-						"namespace": "",
-						"verb": "delete",
-						"group": "",
-						"resource": "nodes"
-					},
-					"user": "sszuecs",
-					"group": [
-						"%s"
-					]
+						"resourceAttributes": {
+							"namespace": "",
+							"verb": "delete",
+							"group": "",
+							"resource": "nodes"
+						},
+						"user": "sszuecs",
+						"group": [
+							"%s"
+						]
 					}
 				}`, emergencyGroup),
 				expect: expect{
@@ -2451,7 +2451,7 @@ var _ = framework.KubeDescribe("Authorization tests", func() {
 						"status": {
 							"allowed": false
 						}
-				}}`,
+					}`,
 				},
 			},
 			{
@@ -2460,16 +2460,16 @@ var _ = framework.KubeDescribe("Authorization tests", func() {
 					"apiVersion": "authorization.k8s.io/v1beta1",
 					"kind": "SubjectAccessReview",
 					"spec": {
-					"resourceAttributes": {
-						"namespace": "",
-						"verb": "delete",
-						"group": "",
-						"resource": "nodes"
-					},
-					"user": "sszuecs",
-					"group": [
-						"%s"
-					]
+						"resourceAttributes": {
+							"namespace": "",
+							"verb": "delete",
+							"group": "",
+							"resource": "nodes"
+						},
+						"user": "sszuecs",
+						"group": [
+							"%s"
+						]
 					}
 				}`, manualGroup),
 				expect: expect{
@@ -2480,7 +2480,7 @@ var _ = framework.KubeDescribe("Authorization tests", func() {
 						"status": {
 							"allowed": false
 						}
-				}}`,
+					}`,
 				},
 			},
 			{
@@ -2489,16 +2489,16 @@ var _ = framework.KubeDescribe("Authorization tests", func() {
 					"apiVersion": "authorization.k8s.io/v1beta1",
 					"kind": "SubjectAccessReview",
 					"spec": {
-					"resourceAttributes": {
-						"namespace": "",
-						"verb": "delete",
-						"group": "",
-						"resource": "nodes"
-					},
-					"user": "sszuecs",
-					"group": [
-						"%s"
-					]
+						"resourceAttributes": {
+							"namespace": "",
+							"verb": "delete",
+							"group": "",
+							"resource": "nodes"
+						},
+						"user": "sszuecs",
+						"group": [
+							"%s"
+						]
 					}
 				}`, powerUserGroup),
 				expect: expect{
@@ -2509,7 +2509,7 @@ var _ = framework.KubeDescribe("Authorization tests", func() {
 						"status": {
 							"allowed": false
 						}
-				}}`,
+					}`,
 				},
 			},
 			{
@@ -2518,16 +2518,16 @@ var _ = framework.KubeDescribe("Authorization tests", func() {
 					"apiVersion": "authorization.k8s.io/v1beta1",
 					"kind": "SubjectAccessReview",
 					"spec": {
-					"resourceAttributes": {
-						"namespace": "",
-						"verb": "list",
-						"group": "",
-						"resource": "nodes"
-					},
-					"user": "sszuecs",
-					"group": [
-						"%s"
-					]
+						"resourceAttributes": {
+							"namespace": "",
+							"verb": "list",
+							"group": "",
+							"resource": "nodes"
+						},
+						"user": "sszuecs",
+						"group": [
+							"%s"
+						]
 					}
 				}`, powerUserGroup),
 				expect: expect{
@@ -2538,7 +2538,7 @@ var _ = framework.KubeDescribe("Authorization tests", func() {
 						"status": {
 							"allowed": true
 						}
-				}}`,
+					}`,
 				},
 			},
 			{
@@ -2547,16 +2547,16 @@ var _ = framework.KubeDescribe("Authorization tests", func() {
 					"apiVersion": "authorization.k8s.io/v1beta1",
 					"kind": "SubjectAccessReview",
 					"spec": {
-					"resourceAttributes": {
-						"namespace": "",
-						"verb": "list",
-						"group": "",
-						"resource": "nodes"
-					},
-					"user": "sszuecs",
-					"group": [
-						"%s"
-					]
+						"resourceAttributes": {
+							"namespace": "",
+							"verb": "list",
+							"group": "",
+							"resource": "nodes"
+						},
+						"user": "sszuecs",
+						"group": [
+							"%s"
+						]
 					}
 				}`, emergencyGroup),
 				expect: expect{
@@ -2567,7 +2567,7 @@ var _ = framework.KubeDescribe("Authorization tests", func() {
 						"status": {
 							"allowed": true
 						}
-				}}`,
+					}`,
 				},
 			},
 			{
@@ -2576,16 +2576,16 @@ var _ = framework.KubeDescribe("Authorization tests", func() {
 					"apiVersion": "authorization.k8s.io/v1beta1",
 					"kind": "SubjectAccessReview",
 					"spec": {
-					"resourceAttributes": {
-						"namespace": "",
-						"verb": "list",
-						"group": "",
-						"resource": "nodes"
-					},
-					"user": "sszuecs",
-					"group": [
-						"%s"
-					]
+						"resourceAttributes": {
+							"namespace": "",
+							"verb": "list",
+							"group": "",
+							"resource": "nodes"
+						},
+						"user": "sszuecs",
+						"group": [
+							"%s"
+						]
 					}
 				}`, manualGroup),
 				expect: expect{
@@ -2596,7 +2596,7 @@ var _ = framework.KubeDescribe("Authorization tests", func() {
 						"status": {
 							"allowed": true
 						}
-				}}`,
+					}`,
 				},
 			},
 			{
@@ -2605,16 +2605,16 @@ var _ = framework.KubeDescribe("Authorization tests", func() {
 					"apiVersion": "authorization.k8s.io/v1beta1",
 					"kind": "SubjectAccessReview",
 					"spec": {
-					"resourceAttributes": {
-						"namespace": "",
-						"verb": "get",
-						"group": "",
-						"resource": "nodes"
-					},
-					"user": "sszuecs",
-					"group": [
-						"%s"
-					]
+						"resourceAttributes": {
+							"namespace": "",
+							"verb": "get",
+							"group": "",
+							"resource": "nodes"
+						},
+						"user": "sszuecs",
+						"group": [
+							"%s"
+						]
 					}
 				}`, powerUserGroup),
 				expect: expect{
@@ -2625,7 +2625,7 @@ var _ = framework.KubeDescribe("Authorization tests", func() {
 						"status": {
 							"allowed": true
 						}
-				}}`,
+					}`,
 				},
 			},
 			{
@@ -2634,16 +2634,16 @@ var _ = framework.KubeDescribe("Authorization tests", func() {
 					"apiVersion": "authorization.k8s.io/v1beta1",
 					"kind": "SubjectAccessReview",
 					"spec": {
-					"resourceAttributes": {
-						"namespace": "",
-						"verb": "get",
-						"group": "",
-						"resource": "nodes"
-					},
-					"user": "sszuecs",
-					"group": [
-						"%s"
-					]
+						"resourceAttributes": {
+							"namespace": "",
+							"verb": "get",
+							"group": "",
+							"resource": "nodes"
+						},
+						"user": "sszuecs",
+						"group": [
+							"%s"
+						]
 					}
 				}`, emergencyGroup),
 				expect: expect{
@@ -2654,7 +2654,7 @@ var _ = framework.KubeDescribe("Authorization tests", func() {
 						"status": {
 							"allowed": true
 						}
-				}}`,
+					}`,
 				},
 			},
 			{
@@ -2663,16 +2663,16 @@ var _ = framework.KubeDescribe("Authorization tests", func() {
 					"apiVersion": "authorization.k8s.io/v1beta1",
 					"kind": "SubjectAccessReview",
 					"spec": {
-					"resourceAttributes": {
-						"namespace": "",
-						"verb": "get",
-						"group": "",
-						"resource": "nodes"
-					},
-					"user": "sszuecs",
-					"group": [
-						"%s"
-					]
+						"resourceAttributes": {
+							"namespace": "",
+							"verb": "get",
+							"group": "",
+							"resource": "nodes"
+						},
+						"user": "sszuecs",
+						"group": [
+							"%s"
+						]
 					}
 				}`, manualGroup),
 				expect: expect{
@@ -2683,7 +2683,7 @@ var _ = framework.KubeDescribe("Authorization tests", func() {
 						"status": {
 							"allowed": true
 						}
-				}}`,
+					}`,
 				},
 			},
 			{
@@ -2692,14 +2692,14 @@ var _ = framework.KubeDescribe("Authorization tests", func() {
 					"apiVersion": "authorization.k8s.io/v1beta1",
 					"kind": "SubjectAccessReview",
 					"spec": {
-					"resourceAttributes": {
-						"namespace": "kube-system",
-						"verb": "get",
-						"group": "",
-						"resource": "secrets"
-					},
-					"user": "zalando-iam:zalando:service:credentials-provider",
-					"group": []
+						"resourceAttributes": {
+							"namespace": "kube-system",
+							"verb": "get",
+							"group": "",
+							"resource": "secrets"
+						},
+						"user": "zalando-iam:zalando:service:credentials-provider",
+						"group": []
 					}
 				}`,
 				expect: expect{
@@ -2710,7 +2710,7 @@ var _ = framework.KubeDescribe("Authorization tests", func() {
 						"status": {
 							"allowed": true
 						}
-				}}`,
+					}`,
 				},
 			},
 			{
@@ -2719,14 +2719,14 @@ var _ = framework.KubeDescribe("Authorization tests", func() {
 					"apiVersion": "authorization.k8s.io/v1beta1",
 					"kind": "SubjectAccessReview",
 					"spec": {
-					"resourceAttributes": {
-						"namespace": "kube-system",
-						"verb": "get",
-						"group": "",
-						"resource": "secrets"
-					},
-					"user": "zalando-iam:zalando:service:credprov-cdp-controller-cluster-token",
-					"group": []
+						"resourceAttributes": {
+							"namespace": "kube-system",
+							"verb": "get",
+							"group": "",
+							"resource": "secrets"
+						},
+						"user": "zalando-iam:zalando:service:credprov-cdp-controller-cluster-token",
+						"group": []
 					}
 				}`,
 				expect: expect{
@@ -2739,7 +2739,7 @@ var _ = framework.KubeDescribe("Authorization tests", func() {
 							"denied": true,
 							"reason":"unauthorized access to system namespace by zalando-iam:zalando:service:credprov-cdp-controller-cluster-token/[]"
 						}
-				}}`,
+					}`,
 				},
 			},
 			{
@@ -2748,15 +2748,15 @@ var _ = framework.KubeDescribe("Authorization tests", func() {
 					"apiVersion": "authorization.k8s.io/v1beta1",
 					"kind": "SubjectAccessReview",
 					"spec": {
-					"resourceAttributes": {
-						"namespace": "kube-system",
-						"verb": "update",
-						"group": "",
-						"resource": "configmaps",
-						"name": "skipper-default-filters"
-					},
-					"user": "system:serviceaccount:api-infrastructure:api-monitoring-controller",
-					"group": []
+						"resourceAttributes": {
+							"namespace": "kube-system",
+							"verb": "update",
+							"group": "",
+							"resource": "configmaps",
+							"name": "skipper-default-filters"
+						},
+						"user": "system:serviceaccount:api-infrastructure:api-monitoring-controller",
+						"group": []
 					}
 				}`,
 				expect: expect{
@@ -2767,7 +2767,7 @@ var _ = framework.KubeDescribe("Authorization tests", func() {
 						"status": {
 							"allowed": true
 						}
-				}}`,
+					}`,
 				},
 			},
 			{
@@ -2776,14 +2776,14 @@ var _ = framework.KubeDescribe("Authorization tests", func() {
 					"apiVersion": "authorization.k8s.io/v1beta1",
 					"kind": "SubjectAccessReview",
 					"spec": {
-					"resourceAttributes": {
-						"namespace": "kube-system",
-						"verb": "update",
-						"group": "",
-						"resource": "configmaps"
-					},
-					"user": "system:serviceaccount:api-infrastructure:api-monitoring-controller",
-					"group": []
+						"resourceAttributes": {
+							"namespace": "kube-system",
+							"verb": "update",
+							"group": "",
+							"resource": "configmaps"
+						},
+						"user": "system:serviceaccount:api-infrastructure:api-monitoring-controller",
+						"group": []
 					}
 				}`,
 				expect: expect{
@@ -2796,7 +2796,7 @@ var _ = framework.KubeDescribe("Authorization tests", func() {
 							"denied": false,
 							"access": "undecided system:serviceaccount:api-infrastructure:api-monitoring-controller/[]"
 						}
-				}}`,
+					}`,
 				},
 			},
 		} {
