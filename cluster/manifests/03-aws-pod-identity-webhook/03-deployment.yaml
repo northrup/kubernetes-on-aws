@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pod-identity-webhook
+  namespace: kube-system
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      application: pod-identity-webhook
+  template:
+    metadata:
+      labels:
+        application: pod-identity-webhook
+      annotations:
+        config/hash: {{"02-secret.yaml" | manifestHash }}
+    spec:
+      serviceAccountName: pod-identity-webhook
+      containers:
+      - name: pod-identity-webhook
+        image: pierone.stups.zalan.do/teapot/pod-identity-webhook:init01
+        resources:
+          requests:
+            cpu: 50m
+            memory: 100Mi
+          limits:
+            cpu: 50m
+            memory: 100Mi
+        imagePullPolicy: Always
+        command:
+        - /webhook
+        - --in-cluster=false
+        - --namespace=default
+        - --service-name=pod-identity-webhook
+        - --tls-cert=/etc/webhook/certs/serverCert.pem
+        - --tls-key=/etc/webhook/certs/serverKey.pem
+        - --annotation-prefix=eks.amazonaws.com
+        - --token-audience=sts.amazonaws.com
+        - --logtostderr
+        volumeMounts:
+        - name: webhook-certs
+          mountPath: /etc/webhook/certs
+          readOnly: false
+      volumes:
+      - name: webhook-certs
+        secret:
+          secretName: pod-identity-webhook-tls-certs
